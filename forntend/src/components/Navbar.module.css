@@ -1,0 +1,30 @@
+@import '../styles/variables.css';
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    position: absolute;
+    top: 0rem;
+    background: none;
+    z-index: 10;
+}
+
+.nav_logo {
+    position: absolute;
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 1rem;
+    padding-left: 2rem;
+    color: var(--color-primary);
+}
+
+.nav_center {
+    padding: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    color: white;
+}

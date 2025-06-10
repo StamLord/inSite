@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import styles from './Home.module.css';
-import Loader from '../components/Loader';
+import Hero from '../components/Hero';
+import Navbar from '../components/Navbar';
 
 const API_URL = process.env.REACT_APP_QUERY_SVC_URL;
 
@@ -36,28 +37,16 @@ function Home() {
   };
 
   return (
-    <div className={styles.wrapper}>
-        <div className={styles.card}>
-        <h1 className={styles.title}>🔍 inSite Analyzer</h1>
-        <p className={styles.subtitle}>Enter a website URL to analyze its SEO and Answer Engine Optimization (AEO).</p>
-        <form className={styles.form} onSubmit={handleSubmit}>
-            <input
-            className={styles.input}
-            type="text"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            placeholder="Enter a website URL"
-            style={{ width: '300px', marginRight: '10px' }}
-            />
-            <button className={styles.button} type="submit" disabled={loading}>
-                {loading ? 'Analyzing...' : 'Analyze'}
-            </button>
-        </form>
-
-        {loading && <Loader />}
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+    <>
+        <Navbar/>
+        <Hero/>
+        <div className={styles.wrapper}>
+            <div className={styles.card}>
+                <h2>How inSITE Helps</h2>
+                <p>Our platform gives you the insights you need to succeed in an AI-first search landscape.</p>
+            </div>
         </div>
-    </div>
+    </>
   );
 }
 

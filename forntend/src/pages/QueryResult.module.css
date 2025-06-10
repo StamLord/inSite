@@ -6,6 +6,7 @@
     justify-content: center;
     min-height: 100vh;
     padding: 2rem;
+    padding-top: 8rem;
     background: linear-gradient(135deg, var(--color-bg-1), var(--color-bg-2));
 }
 
