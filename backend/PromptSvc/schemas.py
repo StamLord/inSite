@@ -15,6 +15,7 @@ class QueryResponse(BaseModel):
     completed_at: Optional[datetime] = None
     prompts: Optional[List[str]] = None
     answers: Optional[List[List[str]]] = None
+    scores: Optional[List[str]] = None
     error: Optional[List[str]] = None
 
     model_config = ConfigDict(from_attributes=True)

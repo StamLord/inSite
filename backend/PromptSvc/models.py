@@ -14,6 +14,7 @@ class QueryRecord(Base):
     completed_at = Column(DateTime(timezone=True), nullable=True)
     prompts = Column(JSONB, nullable=True)
     answers = Column(JSONB, nullable=True)
+    scores = Column(JSONB, nullable=True)
     error = Column(Text, nullable=True)
 
     __table_args__ = (

@@ -6,6 +6,7 @@ from db import SessionLocal, engine
 from models import Base, QueryRecord
 from schemas import QueryRequest, QueryResponse, ScrapeResponse
 from openai_client import get_prompts_chatgpt, ask_chatgpt, get_optimization_score
+from score import get_score
 from datetime import datetime
 from url_utils import minimize_url, maximize_url
 from scraper import scrape_site
@@ -66,12 +67,15 @@ def run_llm_query_task(query_id: str, url: str):
 
                 print("run_llm_query_task: Getting answers...")
                 answers = []
+                scores = []
                 for prompt in prompts:
                     answer = ask_chatgpt(prompt)
                     answers.append(answer)
+                    scores.append(get_score(url, prompt, answer))
 
                 print("run_llm_query_task: Answers received.")
                 entry.answers = answers
+                entry.scores = scores
 
             print("run_llm_query_task: Query completed.")
             entry.status = "complete"
