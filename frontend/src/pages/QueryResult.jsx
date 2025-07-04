@@ -69,7 +69,7 @@ function QueryResult() {
                                                     <li key={i} className={styles.answer}>{ans}</li>
                                                 ))}
                                             </ul>
-                                            <Score score={Math.floor(Math.random() * 101)}/>
+                                            <Score score={result.scores[index]}/>
                                         </div>
                                     ))}
                                 </div>
