@@ -7,6 +7,16 @@ client = OpenAI(
 )
 
 CHAT_GPT_MODEL = "gpt-4"
+CHAT_GPT_BRAND_INSTRUCTIONS = """
+You are checking if a language model recognizes a brand or website by its **exact name**.
+Do not guess or expand abbreviations. Only respond based on the exact input.
+Respond in JSON with these keys:
+- known: true or false
+- summary: a one-sentence summary of what the site is about, or null if unknown
+- confidence: high, medium, or low
+- reasoning: explain why you answered this way
+"""
+
 CHAT_GPT_INSTRUCTIONS = """ 
 Answer only with a JSON array of strings (no explanations, no extra text), for example: 
 
@@ -27,6 +37,26 @@ def get_prompts_chatgpt(url: str) -> dict:
     Avoid queries that directly mention this site.
 """
     return ask_chatgpt(prompt)
+
+
+def get_brand_recognition(url: str) -> dict:
+    print(f"Asking for brand recognition of site: {url}")
+
+    response = client.responses.create(
+        model=CHAT_GPT_MODEL,
+        instructions=CHAT_GPT_BRAND_INSTRUCTIONS,
+        input=f"Generate the JSON response for the following site:{url}"
+    )
+
+    output = response.output_text
+    print("Response from ChatGPT: ", output)
+
+    parsed, error = try_parse_json(output)
+    if error:
+        print(error)
+        return []
+
+    return parsed
 
 
 def ask_chatgpt(prompt: str) -> dict:

@@ -13,6 +13,10 @@ class QueryResponse(BaseModel):
     status: str
     created_at: datetime
     completed_at: Optional[datetime] = None
+    known: Optional[List[str]] = None
+    summary: Optional[List[str]] = None
+    confidence: Optional[List[str]] = None
+    reasoning: Optional[List[str]] = None
     prompts: Optional[List[str]] = None
     answers: Optional[List[List[str]]] = None
     scores: Optional[List[int]] = None
