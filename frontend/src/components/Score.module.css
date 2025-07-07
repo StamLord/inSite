@@ -1,15 +1,13 @@
 .scoreCircle {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
-    width: 110px;
-    height: 110px;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     background: conic-gradient(var(--color-primary) calc(var(--score) * 1%), var(--color-card) 0%);
     --score: 0;
     color: white;
     font-weight: bold;
-    font-size: 3rem;
+    font-size: 1em;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,8 +15,8 @@
 }
 
 .scoreCircleInner {
-    width: 80px;
-    height: 80px;
+    width: 80%;
+    height: 80%;
     border-radius: 50%;
     background: var(--color-card);
     display: flex;
