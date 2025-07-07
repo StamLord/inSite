@@ -95,7 +95,7 @@ function QueryResult() {
                                     <h1 className={styles.title}>AEO Report for {result.site_url}</h1>
 
                                     <div className={styles.resultRow}>
-                                        <div className={styles.resultItem}>
+                                        <div className={`${styles.resultItem} ${styles.flexTwoParts}`}>
                                             <h2 className={styles.subTitle}>Brand Recognition</h2>
                                             <div className={styles.resultSummaryInfo}>
                                                 <p>Recognized: {CapitalizeFirstLetter("" + result.known)}</p>
@@ -103,8 +103,18 @@ function QueryResult() {
                                                 <p>Confidence: {CapitalizeFirstLetter("" + result.confidence)}</p>
                                                 <p>Reasoning: {result.reasoning}</p>
                                             </div>
+                                            
+                                        </div>
+                                        <div className={`${styles.resultItem} ${styles.suggestionCard}`}>
+                                            <h2 className={styles.subTitle}>Score</h2>
                                             <div class={styles.summaryScore}>
                                                 <Score score={GetTotalScore(result)}/>
+                                            </div>
+                                            <div className={styles.suggestionsContainer}>
+                                                <h2 className={styles.subTitle}>Suggestions</h2>
+                                                <p>1. Improve Brand Recognition</p>
+                                                <p>2. Use Structured Data / Schema.org</p>
+                                                <p>3. Publish LLM-Friendly Content</p>
                                             </div>
                                         </div>
                                     </div>
@@ -132,6 +142,10 @@ function QueryResult() {
                                             </div>
                                         </div>
                                     ))}
+                                    </div>
+
+                                    <div className={styles.resultItem}>
+                                        <h2 className={styles.subTitle}>Structure Analasys</h2>
                                     </div>
 
                                     {/* {result.prompts.map((prompt, index) => (

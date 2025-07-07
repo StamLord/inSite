@@ -46,7 +46,7 @@
 
 .resultRow {
     display: flex;
-    gap: 10px;
+    gap: 1.5rem;
 }
 
 .resultSummaryInfo {
@@ -56,9 +56,9 @@
 .summaryScore {
     width: 110px;
     height: 110px;
-    position: absolute;
-    bottom: 30%;
-    right: 5%;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
     font-size: 40px;
 }
 
@@ -70,6 +70,33 @@
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s;
+}
+
+.flexTwoParts {
+    flex: 2;
+}
+
+.suggestionCard {
+    display: flex;
+    gap: 0.25rem;
+    flex-direction: column;
+    flex: 1;
+}
+
+.suggestionsContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    gap: 1rem;
+}
+
+.suggestionCard p {
+    margin: 0;
+}
+
+.suggestionCard h2 {
+    margin: 0 auto 0 auto;
 }
 
 .scoreItem {
