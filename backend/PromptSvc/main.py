@@ -54,13 +54,14 @@ def submit_query(req: QueryRequest, background_tasks: BackgroundTasks, db: Sessi
 
 
 def run_llm_query_task(query_id: str, url: str):
-    url = minimize_url(url)
+    max_url = maximize_url(url)
+    min_url = minimize_url(url)
     db = SessionLocal()
     try:
         entry = db.query(QueryRecord).get(query_id)
         try:
             print("run_llm_query_task: Getting brand recognition...")
-            brand_recognition = get_brand_recognition(url)
+            brand_recognition = get_brand_recognition(min_url)
             if brand_recognition:
                 entry.known = brand_recognition["known"]
                 entry.summary = brand_recognition["summary"]
@@ -69,7 +70,7 @@ def run_llm_query_task(query_id: str, url: str):
 
             if brand_recognition["known"]:
                 print("run_llm_query_task: Getting prompts...")
-                prompts = get_prompts_chatgpt(url)
+                prompts = get_prompts_chatgpt(min_url)
                 if prompts:
                     print("run_llm_query_task: Prompt received.")
                     entry.prompts = prompts
@@ -80,13 +81,18 @@ def run_llm_query_task(query_id: str, url: str):
                     for prompt in prompts:
                         answer = ask_chatgpt(prompt)
                         answers.append(answer)
-                        scores.append(get_score(url, prompt, answer))
+                        scores.append(get_score(min_url, prompt, answer))
 
                     print("run_llm_query_task: Answers received.")
                     entry.answers = answers
                     entry.scores = scores
             else:
-                print("run_llm_query_task: Brand not known, exiting early")
+                print("run_llm_query_task: Brand not known!")
+
+            print("run_llm_query_task: Scraping site...")
+            scrape_result = scrape(max_url)
+            if scrape_result:
+                entry.scrape = scrape_result
 
             print("run_llm_query_task: Query completed.")
             entry.status = "complete"
@@ -118,13 +124,17 @@ def get_query(query_id: str, db: Session = Depends(get_db)):
 @app.post("/scrape", response_model=ScrapeResponse)
 def submit_scrape(req: QueryRequest, background_tasks: BackgroundTasks):
     print(f"Got new scrape request: {req}")
-    url = maximize_url(req.url)
-    scraped = scrape_site(url)
-
-    summary = get_optimization_score(scraped)
+    result = scrape(req.url)
 
     return ScrapeResponse(
-        site_url=url,
-        response=summary,
-        final_score="100"
-    )
+            site_url=req.url,
+            response=result,
+        )
+
+
+def scrape(url: str):
+    url = maximize_url(url)
+    scraped = scrape_site(url)
+    summary = get_optimization_score(scraped)
+
+    return summary

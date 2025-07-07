@@ -7,7 +7,7 @@ client = OpenAI(
 )
 
 CHAT_GPT_MODEL = "gpt-4"
-CHAT_GPT_BRAND_INSTRUCTIONS = """
+BRAND_INSTRUCTIONS = """
 You are checking if a language model recognizes a brand or website by its **exact name**.
 Do not guess or expand abbreviations. Only respond based on the exact input.
 Respond in JSON with these keys:
@@ -17,7 +17,7 @@ Respond in JSON with these keys:
 - reasoning: explain why you answered this way
 """
 
-CHAT_GPT_INSTRUCTIONS = """ 
+PROMPT_INSTRUCTIONS = """ 
 Answer only with a JSON array of strings (no explanations, no extra text), for example: 
 
 [
@@ -29,6 +29,31 @@ Answer only with a JSON array of strings (no explanations, no extra text), for e
 """
 PROMPTS_NUM = 5
 
+SCRAPE_INSTRUCTIONS = """
+    You are an expert in SEO and Answer Engine Optimization (AEO).
+    You will be given the full HTML content of a website. Analyze how well the content is optimized for Answer Engines like ChatGPT, Google’s Featured Snippets, Bing Chat, and voice assistants.
+    Provide a JSON response with the following structure:
+
+    {
+        "overall_score": 0-100,  // Numeric score from 0 (poor) to 100 (excellent)
+        "summary": "Brief summary of the AEO quality",
+        "strengths": [ "List of strong aspects of the content" ],
+        "weaknesses": [ "List of weaknesses or missing elements" ],
+        "recommendations": [ "Actionable suggestions to improve AEO" ],
+        "key_factors": {
+            "structured_data": "Good / Missing / Poor",
+            "question_answer_format": "Good / Poor / Missing",
+            "readability": "Grade level or score",
+            "loading_speed_estimate": "Fast / Moderate / Slow",
+            "mobile_friendly": "Yes / No / Not enough info",
+            "content_depth": "Shallow / Moderate / Deep",
+            "keyword_targeting": "Effective / Weak / Missing",
+            "semantic_markup": "Good / Poor / Missing"
+        }
+    }
+
+    Only return the JSON. Do not include explanations or extra commentary.
+"""
 
 def get_prompts_chatgpt(url: str) -> dict:
     prompt = f"""
@@ -44,7 +69,7 @@ def get_brand_recognition(url: str) -> dict:
 
     response = client.responses.create(
         model=CHAT_GPT_MODEL,
-        instructions=CHAT_GPT_BRAND_INSTRUCTIONS,
+        instructions=BRAND_INSTRUCTIONS,
         input=f"Generate the JSON response for the following site:{url}"
     )
 
@@ -64,7 +89,7 @@ def ask_chatgpt(prompt: str) -> dict:
 
     response = client.responses.create(
         model=CHAT_GPT_MODEL,
-        instructions=CHAT_GPT_INSTRUCTIONS,
+        instructions=PROMPT_INSTRUCTIONS,
         input=prompt
     )
 
@@ -88,38 +113,11 @@ def try_parse_json(json_string):
 
 
 def get_optimization_score(html: str) -> dict:
-    prompt = """
-    You are an expert in SEO and Answer Engine Optimization (AEO).
-
-    You will be given the full HTML content of a website. Analyze how well the content is optimized for Answer Engines like ChatGPT, Google’s Featured Snippets, Bing Chat, and voice assistants.
-
-    Provide a JSON response with the following structure:
-
-    {
-    "overall_score": 0-100,  // Numeric score from 0 (poor) to 100 (excellent)
-      "summary": "Brief summary of the AEO quality",
-      "strengths": [ "List of strong aspects of the content" ],
-      "weaknesses": [ "List of weaknesses or missing elements" ],
-      "recommendations": [ "Actionable suggestions to improve AEO" ],
-      "key_factors": {
-    "structured_data": "Good / Missing / Poor",
-        "question_answer_format": "Good / Poor / Missing",
-        "readability": "Grade level or score",
-        "loading_speed_estimate": "Fast / Moderate / Slow",
-        "mobile_friendly": "Yes / No / Not enough info",
-        "content_depth": "Shallow / Moderate / Deep",
-        "keyword_targeting": "Effective / Weak / Missing",
-        "semantic_markup": "Good / Poor / Missing"
-      }
-    }
-
-    Only return the JSON. Do not include explanations or extra commentary.
-
-    Now analyze the following HTML content: 
-""" + html
+    prompt = "Analyze the following HTML content: " + html
 
     response = client.responses.create(
         model=CHAT_GPT_MODEL,
+        instructions=SCRAPE_INSTRUCTIONS,
         input=prompt
     )
 

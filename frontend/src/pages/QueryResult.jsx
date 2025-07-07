@@ -37,7 +37,12 @@ function QueryResult() {
         for (let s in data.scores)
             score += data.scores[s];
         
-        return score / data.scores.length;
+        score = score / data.scores.length;
+
+        if (data.scrape)
+            score = Math.floor(score * .9 + data.scrape.overall_score * .1);
+
+        return score;
     }
 
     React.useEffect(() => {
@@ -145,20 +150,57 @@ function QueryResult() {
                                     </div>
 
                                     <div className={styles.resultItem}>
-                                        <h2 className={styles.subTitle}>Structure Analasys</h2>
-                                    </div>
-
-                                    {/* {result.prompts.map((prompt, index) => (
-                                        <div key={index} className={styles.resultItem}>
-                                            <h3>{prompt}</h3>
-                                            <ul>
-                                                {result.answers[index].map((ans, i) => (
-                                                    <li key={i} className={styles.answer}>{ans}</li>
-                                                ))}
-                                            </ul>
-                                            <Score score={result.scores[index]}/>
+                                        <div className={styles.resultRow}>
+                                            <h2 className={styles.subTitle}>Structure Analasys</h2>
+                                            <div className={styles.structureScore}>
+                                                <Score score={result.scrape.overall_score}/>
+                                            </div>
                                         </div>
-                                    ))} */}
+                                        <div>
+                                            <h3>Summary</h3>
+                                            {result.scrape.summary}
+
+                                            <h3>Strengths</h3>
+                                            <ul>
+                                                {result.scrape.strengths.map(text => {
+                                                    return (
+                                                        <li>{text}</li>
+                                                    );
+                                                })}
+                                            </ul>
+
+                                            <h3>Weaknesses</h3>
+                                            <ul>
+                                                {result.scrape.weaknesses.map(text => {
+                                                    return (
+                                                        <li>{text}</li>
+                                                    );
+                                                })}
+                                            </ul>
+
+                                            <table className={styles.styledTable}>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Factor</th>
+                                                        <th>Value</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {Object.entries(result.scrape.key_factors).map(([key, value]) => {
+                                                        return (
+                                                            <tr>
+                                                                <td>{key}</td>
+                                                                <td>{value}</td>
+                                                            </tr>
+                                                        );
+                                                    })}
+                                                </tbody>
+                                            </table>
+
+                                            <h3>Recommendations</h3>
+                                            {result.scrape.recommendations}
+                                        </div>
+                                    </div>
                                 </div>
                             )}
                         </>
