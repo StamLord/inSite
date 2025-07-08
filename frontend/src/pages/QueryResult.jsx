@@ -157,29 +157,48 @@ function QueryResult() {
                                             </div>
                                         </div>
                                         <div>
-                                            <h3>Summary</h3>
-                                            {result.scrape.summary}
+                                            <div className={styles.structureSummary}>
+                                                <h3>Summary</h3>
+                                                {result.scrape.summary}
+                                            </div>
+                                            <div className={styles.structureStrengthsAndWeaknesses}>
+                                                <table className={styles.styledTable}>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Strengths</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {result.scrape.strengths.map(text => {
+                                                            return (
+                                                                <tr>
+                                                                    <td>{text}</td>
+                                                                </tr>
+                                                            );
+                                                        })}
+                                                    </tbody>
+                                                </table>
 
-                                            <h3>Strengths</h3>
-                                            <ul>
-                                                {result.scrape.strengths.map(text => {
-                                                    return (
-                                                        <li>{text}</li>
-                                                    );
-                                                })}
-                                            </ul>
-
-                                            <h3>Weaknesses</h3>
-                                            <ul>
-                                                {result.scrape.weaknesses.map(text => {
-                                                    return (
-                                                        <li>{text}</li>
-                                                    );
-                                                })}
-                                            </ul>
+                                                <table className={styles.styledTable}>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Weaknesses</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {result.scrape.weaknesses.map(text => {
+                                                            return (
+                                                                <tr>
+                                                                    <td>{text}</td>
+                                                                </tr>
+                                                            );
+                                                        })}
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                             
                                             <h3>Overview</h3>
-                                            <table className={styles.styledTable}>
+                                            <table className={`${styles.styledTable} ${styles.fullTable}`}>
                                                 <thead>
                                                     <tr>
                                                         <th>Factor</th>
@@ -199,7 +218,7 @@ function QueryResult() {
                                             </table>
 
                                             <h3>Technical Scan</h3>
-                                            <table className={styles.styledTable}>
+                                            <table className={`${styles.styledTable} ${styles.fullTable}`}>
                                                 <thead>
                                                     <tr>
                                                         <th>Factor</th>
