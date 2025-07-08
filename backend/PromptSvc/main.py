@@ -90,9 +90,11 @@ def run_llm_query_task(query_id: str, url: str):
                 print("run_llm_query_task: Brand not known!")
 
             print("run_llm_query_task: Scraping site...")
-            scrape_result = scrape(max_url)
-            if scrape_result:
-                entry.scrape = scrape_result
+            summary, technical_scan = scrape(max_url)
+            if summary:
+                entry.scrape = summary
+            if technical_scan:
+                entry.technical_scan = technical_scan
 
             print("run_llm_query_task: Query completed.")
             entry.status = "complete"
@@ -124,17 +126,18 @@ def get_query(query_id: str, db: Session = Depends(get_db)):
 @app.post("/scrape", response_model=ScrapeResponse)
 def submit_scrape(req: QueryRequest, background_tasks: BackgroundTasks):
     print(f"Got new scrape request: {req}")
-    result = scrape(req.url)
+    summary, technical_scan = scrape(req.url)
 
     return ScrapeResponse(
             site_url=req.url,
-            response=result,
+            summary=summary,
+            technical_scan=technical_scan,
         )
 
 
 def scrape(url: str):
     url = maximize_url(url)
-    scraped = scrape_site(url)
+    scraped, technical_scan = scrape_site(url)
     summary = get_optimization_score(scraped)
 
-    return summary
+    return summary, technical_scan

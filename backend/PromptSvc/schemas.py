@@ -21,6 +21,7 @@ class QueryResponse(BaseModel):
     answers: Optional[List[List[str]]] = None
     scores: Optional[List[int]] = None
     scrape: Optional[Dict[str, Any]] = None
+    technical_scan: Optional[Dict[str, Any]] = None
     error: Optional[str] = None
 
     model_config = ConfigDict(from_attributes=True)
@@ -28,4 +29,6 @@ class QueryResponse(BaseModel):
 
 class ScrapeResponse(BaseModel):
     site_url: str
-    response: dict
+    summary: dict
+    technical_scan: dict
+

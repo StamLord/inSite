@@ -20,6 +20,7 @@ class QueryRecord(Base):
     answers = Column(JSONB, nullable=True)
     scores = Column(JSONB, nullable=True)
     scrape = Column(JSONB, nullable=True)
+    technical_scan = Column(JSONB, nullable=True)
     error = Column(Text, nullable=True)
 
     __table_args__ = (

@@ -151,7 +151,7 @@ function QueryResult() {
 
                                     <div className={styles.resultItem}>
                                         <div className={styles.resultRow}>
-                                            <h2 className={styles.subTitle}>Structure Analasys</h2>
+                                            <h2 className={styles.subTitle}>Structure Analysis</h2>
                                             <div className={styles.structureScore}>
                                                 <Score score={result.scrape.overall_score}/>
                                             </div>
@@ -177,7 +177,8 @@ function QueryResult() {
                                                     );
                                                 })}
                                             </ul>
-
+                                            
+                                            <h3>Overview</h3>
                                             <table className={styles.styledTable}>
                                                 <thead>
                                                     <tr>
@@ -187,6 +188,26 @@ function QueryResult() {
                                                 </thead>
                                                 <tbody>
                                                     {Object.entries(result.scrape.key_factors).map(([key, value]) => {
+                                                        return (
+                                                            <tr>
+                                                                <td>{key}</td>
+                                                                <td>{value}</td>
+                                                            </tr>
+                                                        );
+                                                    })}
+                                                </tbody>
+                                            </table>
+
+                                            <h3>Technical Scan</h3>
+                                            <table className={styles.styledTable}>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Factor</th>
+                                                        <th>Value</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {Object.entries(result.technical_scan).map(([key, value]) => {
                                                         return (
                                                             <tr>
                                                                 <td>{key}</td>
