@@ -70,36 +70,40 @@ export function getRecommendations(data, top = 5) {
         matched.push(...brandRules[data.known])
 
     // Prompt score
-    const scores = data.scores; 
-    let averageScore = 0;
+    if (data.scores) {
+        const scores = data.scores; 
+        let averageScore = 0;
 
-    if (scores.length === 0)
-        averageScore = 0;
-    else {
-        const sum = scores.reduce((acc, val) => acc + val);
-        averageScore = sum / scores.length;
+        if (scores.length === 0)
+            averageScore = 0;
+        else {
+            const sum = scores.reduce((acc, val) => acc + val);
+            averageScore = sum / scores.length;
+        }
+        
+        let scoreLabel = "high";
+        if (averageScore <= 75)
+            scoreLabel = "medium";
+        else if (averageScore <= 50)
+            scoreLabel = "low";
+
+        const promptRules = RECOMMENDATION_RULES["prompt_score"];
+        if (promptRules && promptRules[scoreLabel])
+            matched.push(...promptRules[scoreLabel]);
     }
     
-    let scoreLabel = "high";
-    if (averageScore <= 75)
-        scoreLabel = "medium";
-    else if (averageScore <= 50)
-        scoreLabel = "low";
-
-    const promptRules = RECOMMENDATION_RULES["prompt_score"];
-    if (promptRules && promptRules[scoreLabel])
-        matched.push(...promptRules[scoreLabel]);
-    
     // Go over technical scan: Get all rules matching this factor & value
-    Object.entries(data.technical_scan).forEach(([factor, value]) => {
-        // Normalize value
-        value = value.toLowerCase();
-        value = value.split(" ")[0];
+    if (data.technical_scan) {
+        Object.entries(data.technical_scan).forEach(([factor, value]) => {
+            // Normalize value
+            value = value.toLowerCase();
+            value = value.split(" ")[0];
 
-        const rules = RECOMMENDATION_RULES[factor];
-        if (rules && rules[value])
-            matched.push(...rules[value]);
-    })
+            const rules = RECOMMENDATION_RULES[factor];
+            if (rules && rules[value])
+                matched.push(...rules[value]);
+        })
+    }
 
     matched.sort((a, b) => b.score - a.score);
     return matched.slice(0, top);
