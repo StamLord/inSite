@@ -4,6 +4,7 @@ import styles from './QueryResult.module.css';
 import Navbar from '../components/Navbar';
 import Loader from '../components/Loader';
 import Score from '../components/Score';
+import { getRecommendations } from '../utils/recommendations';
 
 const API_URL = process.env.REACT_APP_QUERY_SVC_URL;
 
@@ -17,6 +18,7 @@ function QueryResult() {
     const [loading, setLoading] = React.useState(true);
     const [error, setError] = React.useState(null);
     const [visibleAnswers, setVisibleAnswers] = React.useState([]);
+    const [recommendations, setRecommendations] = React.useState([]);
 
     let intervalId;
 
@@ -50,6 +52,13 @@ function QueryResult() {
         }, [visibleAnswers]);
     
     React.useEffect(() => {
+        if (result) {
+            setRecommendations(getRecommendations(result, 3));
+            console.log(recommendations);
+        }
+    }, [result])
+
+    React.useEffect(() => {
         async function fetchResult() {
             try {
                 const res = await fetch(API_URL + `/query/${id}`);
@@ -61,7 +70,7 @@ function QueryResult() {
                 if (data?.answers) {
                     setVisibleAnswers(new Array(data.answers.length).fill(false));
                 }
-
+                
                 if (data.status === "complete")
                     clearInterval(intervalId);
                 
@@ -117,9 +126,10 @@ function QueryResult() {
                                             </div>
                                             <div className={styles.suggestionsContainer}>
                                                 <h2 className={styles.subTitle}>Suggestions</h2>
-                                                <p>1. Improve Brand Recognition</p>
-                                                <p>2. Use Structured Data / Schema.org</p>
-                                                <p>3. Publish LLM-Friendly Content</p>
+                                                {recommendations.map((rec, index) => (
+                                                    <p key={index}>{index + 1}. {rec.text}</p>
+                                                    // <p key={index}>{index + 1}. {rec}</p>
+                                                ))}
                                             </div>
                                         </div>
                                     </div>
