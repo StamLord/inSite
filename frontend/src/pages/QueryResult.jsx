@@ -221,7 +221,7 @@ function QueryResult() {
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {Object.entries(result.scrape.key_factors).map(([key, value]) => {
+                                                        {result.scrape && Object.entries(result.scrape.key_factors).map(([key, value]) => {
                                                             return (
                                                                 <tr>
                                                                     <td>{key}</td>
@@ -241,7 +241,7 @@ function QueryResult() {
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {Object.entries(result.technical_scan).map(([key, value]) => {
+                                                        {result.technical_scan && Object.entries(result.technical_scan).map(([key, value]) => {
                                                             return (
                                                                 <tr>
                                                                     <td>{key}</td>
@@ -253,7 +253,7 @@ function QueryResult() {
                                                 </table>
 
                                                 <h3>Recommendations</h3>
-                                                {result.scrape.recommendations}
+                                                {result.scrape && result.scrape.recommendations}
                                             </div>
                                         </>}
                                     </div>
