@@ -11,20 +11,64 @@
     z-index: 10;
 }
 
+a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--color-accent);
+}
+
 .nav_logo {
-    position: absolute;
     font-size: 2rem;
     font-weight: bold;
     padding: 1rem;
-    padding-left: 2rem;
-    color: var(--color-primary);
+    padding-left: 5rem;
+    color: var(--color-accent);
 }
 
 .nav_center {
-    padding: 2rem;
-    width: 100%;
+    margin: 1rem;
+    padding: 0.5rem 4rem;
     display: flex;
     justify-content: center;
     gap: 4rem;
+    color: white;
+    background: var(--color-card);
+    border-radius: 30px;
+    border: rgb(114, 114, 114) 1px solid;
+}
+
+.login_container {
+    margin: 1rem;
+    display: flex;
+    gap: 10px;
+    background: none;
+}
+
+.login_container button {
+    padding: 0rem 1rem;
+    border: 0;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.login_container button:hover {
+    background-color: var(--color-accent);
+}
+
+.login_btn {
+    background: var(--color-card);
+    color: white;
+}
+
+.demo_btn {
+    background-color: white;
+}
+
+.demo_btn:hover {
     color: white;
 }

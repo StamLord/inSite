@@ -8,11 +8,14 @@ const Navbar = () => {
             inSITE
         </div>
         <div className={styles.nav_center}>
-            <a>Dashboard</a>
-            <a>What is AEO</a>
-            <a>How It Works</a>
-            <a>Pricing</a>
-            <a>Partner with us</a>
+            <a href="#">Platform</a>
+            <a href="#">Blog</a>
+            <a href="#">Pricing</a>
+            <a href="#">Careers</a>
+        </div>
+        <div className={styles.login_container}>
+          <button className={styles.login_btn}>Login</button>
+          <button className={styles.demo_btn}>Get a Demo</button>
         </div>
     </nav>
   );

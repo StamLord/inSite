@@ -6,59 +6,131 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: center;
-    text-align: center;
-    background: linear-gradient(135deg, var(--color-bg-1), var(--color-bg-2));
+    background-color: black; /* fallback */
+    background-image: 
+      radial-gradient(circle at -5% 40%, var(--color-bg-1) 0%, transparent 40%),
+      radial-gradient(circle at 100% 100%, var(--color-bg-1) 0%, transparent 60%);
     position: relative;
     overflow: hidden;
 }
 
 .content {
+  display: flex;
   margin-top: 10vh;
   z-index: 1;
 }
 
-.letter {
+.headline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  color: white;
+}
+
+.headlineContainer {
+  width: 70%;
+  margin-top: 4rem;
+}
+
+.headline h1 {
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: lighter;
+  margin: 0;
+  font-size: 4rem;
+  line-height: 110%;
+}
+
+.description {
+  width: 75%;
+  margin: 4rem 0rem 8rem;
+  font-size: 1.5rem;
+  font-weight: lighter;
+}
+
+.customersContainer {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: lighter;
+}
+
+.customersContainer h2 {
+  font-weight: lighter;
+}
+
+.customerList {
+  display: flex;
+  gap: 10px;
+}
+
+.customerBubble {
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  border-radius: 50px;
+}
+
+.customerQuotes {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 300px;
+}
+
+.quote {
+  position: absolute;
   opacity: 0;
-  animation: fadeInUp 0.4s forwards;
+  animation: fadeCycle 24s infinite;
 }
 
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-  }
+.quote:nth-child(1) { animation-delay: 0s; }
+.quote:nth-child(2) { animation-delay: 8s; }
+.quote:nth-child(3) { animation-delay: 16s; }
+
+@keyframes fadeCycle {
+  0%   { opacity: 0; }
+  10%  { opacity: 1; }
+  30%  { opacity: 1; }
+  40%  { opacity: 0; }
+  100% { opacity: 0; }
 }
 
-.heroTitle {
-    display: flex;
-    align-items: center;
-    font-size: 3rem;
-    font-weight: bold;
-    overflow: hidden;
-    position: relative;
-    white-space: nowrap;
+.actionButtons {
+  margin: 4rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
 }
 
-.glass {
-    font-size: 3rem;
-    font-weight: bold;
-    z-index: 2;
-    position: relative;
-    margin-right: 0.5rem;
+.actionButtons button {
+  color: white;
+  font-size: 1rem;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 50px;
+  transition: background-color 0.5s ease;
 }
 
-.revealText {
-    display: inline-block;
-    font-size: 3rem;
-    font-weight: bold;
-    color: var(--color-primary);
-    margin-bottom: 1rem;
+.actionButtons button:hover {
+  background-color: white;
+  color: var(--color-text);
 }
 
-.subtitle {
-    font-size: 1.25rem;
-    color: white;
-    margin: 0 auto 2rem;
+.optimizeBtn {
+  background-color: var(--color-secondary);
+}
+
+.demoBtn {
+  background-color: var(--color-primary);
+}
+
+.video {
+  flex: 0.85;
+  text-align: center;
+  align-content: center;
+  background-color: white;
 }
 
 .scrollHint {

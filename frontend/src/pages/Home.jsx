@@ -40,12 +40,12 @@ function Home() {
     <>
         <Navbar/>
         <Hero/>
-        <div className={styles.wrapper}>
+        {/* <div className={styles.wrapper}>
             <div className={styles.card}>
                 <h2>How inSITE Helps</h2>
                 <p>Our platform gives you the insights you need to succeed in an AI-first search landscape.</p>
             </div>
-        </div>
+        </div> */}
     </>
   );
 }
