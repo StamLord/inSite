@@ -28,7 +28,7 @@
 
 .subTitle {
     font-size: 1.5rem;
-    color: var(--color-primary);
+    color: var(--color-accent);
 }
 
 .url {
@@ -144,7 +144,6 @@
 
 .resultItem h3 {
     font-size: 1.1rem;
-    color: #333;
     margin-bottom: 0.75rem;
 }
 
@@ -198,9 +197,7 @@
     border-collapse: collapse;
     font-size: 0.95rem;
     font-family: system-ui, sans-serif;
-    border: 1px solid #ddd;
-    background-color: #fff;
-    border-radius: 8px;
+    border: 1px solid var(--color-accent);
     overflow: hidden;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
@@ -210,8 +207,7 @@
 }
 
 .styledTable thead {
-    background-color: #f5f5f5;
-    color: #333;
+    background-color: var(--color-accent);
     text-transform: uppercase;
     font-weight: 600;
 }
@@ -220,11 +216,14 @@
 .styledTable td {
     padding: 12px 16px;
     text-align: left;
-    border-bottom: 1px solid #eee;
+}
+
+.styledTable tr:nth-child(even) {
+    background-color: var(--color-text);
 }
 
 .styledTable tr:hover {
-    background-color: #fafafa;
+    background-color: var(--color-card);
     transition: background-color 0.2s ease;
 }
 
