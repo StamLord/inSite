@@ -101,6 +101,7 @@ def run_llm_query_task(query_id: str, url: str):
             entry.completed_at = datetime.utcnow()
 
         except Exception as e:
+            print("run_llm_query_task failed: ", e)
             entry.status = "error"
             entry.error = str(e)
         db.commit()
