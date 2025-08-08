@@ -1,11 +1,12 @@
 import React from 'react';
 import styles from './Navbar.module.css';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
     <nav className={styles.navbar}>
         <div className={styles.nav_logo}>
-            inSITE
+            <Link to="/">INSITE</Link>
         </div>
         <div className={styles.nav_center}>
             <a href="#">Platform</a>

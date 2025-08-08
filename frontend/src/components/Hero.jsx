@@ -1,8 +1,12 @@
 import React from 'react';
 import styles from './Hero.module.css';
 import AnalyzeContainer from './AnalyzeContainer';
+import Footer from './Footer';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
+  const navigate = useNavigate();
+
   return (
     <section className={styles.hero}>
         <div className={styles.content}>
@@ -27,19 +31,15 @@ const Hero = () => {
                 </div>
               </div>
               <div className={styles.actionButtons}>
-                <button className={styles.optimizeBtn}>Optimize Now ➜</button>
-                <button className={styles.demoBtn}>Request a Demo ➜</button>
+                <button className={styles.optimizeBtn} onClick={() => navigate("/analyze")}>Optimize Now ➜</button>
+                <button className={styles.demoBtn} onClick={() => navigate("/analyze")}>Request a Demo ➜</button>
               </div>
             </div>
           </div>
           <div className={styles.video}>
             Video showcasing a user asking AI for Recommendation.
           </div>
-            {/* <AnalyzeContainer/> */}
         </div>
-      <div className={styles.scrollHint}>
-        <span>↓ Scroll to learn more</span>
-      </div>
     </section>
   );
 };

@@ -6,9 +6,9 @@ client = OpenAI(
     api_key=os.getenv("OPEN_API_KEY")
 )
 
-CHAT_GPT_MODEL = "gpt-4"
+CHAT_GPT_MODEL = "gpt-4.0"
 BRAND_INSTRUCTIONS = """
-You are checking if a language model recognizes a brand or website by its **exact name**.
+Do you recognize the following brand or website by its **exact name**.
 Do not guess or expand abbreviations. Only respond based on the exact input.
 Respond in JSON with these keys:
 - known: true or false

@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from "./pages/Home";
 import QueryResult from "./pages/QueryResult";
+import AnalyzePage from './pages/AnalyzePage';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home/>}/>
+        <Route path="/analyze" element={<AnalyzePage/>}/>
         <Route path="/query/:id" element={<QueryResult/>}/>
       </Routes>
     </Router>

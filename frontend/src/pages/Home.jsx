@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import styles from './Home.module.css';
-import Hero from '../components/Hero';
-import Navbar from '../components/Navbar';
+import HomePage from '../components/HomePage';
 
 const API_URL = process.env.REACT_APP_QUERY_SVC_URL;
 
@@ -37,16 +36,7 @@ function Home() {
   };
 
   return (
-    <>
-        <Navbar/>
-        <Hero/>
-        {/* <div className={styles.wrapper}>
-            <div className={styles.card}>
-                <h2>How inSITE Helps</h2>
-                <p>Our platform gives you the insights you need to succeed in an AI-first search landscape.</p>
-            </div>
-        </div> */}
-    </>
+      <HomePage/>
   );
 }
 

@@ -26,7 +26,14 @@ a:hover {
     font-weight: bold;
     padding: 1rem;
     padding-left: 5rem;
+}
+
+.nav_logo a {
     color: var(--color-accent);
+}
+
+.nav_logo a:hover {
+    color: white;
 }
 
 .nav_center {

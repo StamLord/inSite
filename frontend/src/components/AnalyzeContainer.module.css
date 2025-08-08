@@ -38,7 +38,7 @@
     display: inline-block;
     font-size: 3rem;
     font-weight: bold;
-    color: var(--color-primary);
+    color: var(--color-accent);
     margin-bottom: 1rem;
 }
 
