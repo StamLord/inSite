@@ -9,7 +9,7 @@ def get_score(url: str, prompt: str, answers: list) -> int:
 
     for i, a in enumerate(answers):
         a = a.lower()
-        if a == url:
+        if url in a:
             place = i + 1
             break
 
