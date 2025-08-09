@@ -114,6 +114,10 @@ function QueryResult() {
             {error && <p className={styles.error}>Error: {error}</p>}
 
             {result &&
+            <>
+            <div className={styles.title}>
+                <h2>Your AI Search Visibility Report for {result.site_url}</h2>
+            </div>
             <div className={styles.card}>
                 <div className={styles.tabs}>
                     {tabs.map(tab => (
@@ -198,7 +202,7 @@ function QueryResult() {
                                 {result.prompts && result.prompts.map((prompt, index) => (
                                 <div key={index} className={styles.promptItem}>
                                     <div>
-                                        <h4>{prompt}</h4>
+                                        <h4>💬 {prompt}</h4>
                                         {visibleAnswers[index]
                                             ?   <div>
                                                     <ul className={styles.promptAnswers}>
@@ -238,15 +242,15 @@ function QueryResult() {
                             </div>
                         </div>
                         <div className={styles.resultRow}>
-                            <div className={styles.resultItem}>
+                            <div className={`${styles.resultItem} ${styles.flexOne}`}>
                                 <table className={styles.styledTable}>
                                     <thead>
                                         <tr>
-                                            <th>Strengths</th>
+                                            <th>Weaknesses</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {result.scrape.strengths.map(text => {
+                                        {result.scrape.weaknesses.map(text => {
                                             return (
                                                 <tr>
                                                     <td>{text}</td>
@@ -256,15 +260,15 @@ function QueryResult() {
                                     </tbody>
                                 </table>
                             </div>
-                            <div className={styles.resultItem}>
+                            <div className={`${styles.resultItem} ${styles.flexOne}`}>
                                 <table className={styles.styledTable}>
                                     <thead>
                                         <tr>
-                                            <th>Weaknesses</th>
+                                            <th>Strengths</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {result.scrape.weaknesses.map(text => {
+                                        {result.scrape.strengths.map(text => {
                                             return (
                                                 <tr>
                                                     <td>{text}</td>
@@ -327,6 +331,7 @@ function QueryResult() {
                 }
 
             </div>
+            </>
             }
 
             <Footer/>

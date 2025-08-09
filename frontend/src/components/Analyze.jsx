@@ -36,7 +36,7 @@ const Analyze = () => {
     };
 
     return (
-        <div className={styles.container}>
+        <div>
             {loading ? <Loader /> : 
                 <form className={styles.form} onSubmit={handleSubmit}>
                     <input
@@ -44,7 +44,7 @@ const Analyze = () => {
                     type="text"
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}
-                    placeholder="Enter a website URL"
+                    placeholder="Paste your website URL"
                     style={{ width: '300px', marginRight: '10px' }}
                     />
                     <button className={styles.button} type="submit" disabled={loading}>Analyze</button>

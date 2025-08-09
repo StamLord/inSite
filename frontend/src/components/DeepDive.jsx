@@ -10,11 +10,11 @@ const DeepDive = () => {
                     <div className={styles.point}>
                         <div className={styles.pointIcon}/>
                         <h3>AI Visibility Score</h3>
-                        <p>See how AI search engines interpet your site — based on relevance, accureacy, and structure.</p>
+                        <p>See how AI search engines interpret your site — based on relevance, accuracy, and structure.</p>
                     </div>
                     <div className={styles.point}>
                         <div className={styles.pointIcon}/>
-                        <h3>What People Ask About you</h3>
+                        <h3>What People Ask About You</h3>
                         <p>See what people ask AI about your brand — and where you're showing up.</p>
                     </div>
                     <div className={styles.point}>

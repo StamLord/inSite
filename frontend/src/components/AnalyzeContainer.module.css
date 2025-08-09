@@ -1,49 +1,26 @@
 @import '../styles/variables.css';
 
+h3 {
+  color: var(--color-accent);
+}
+
 .content {
   margin-top: 10vh;
   z-index: 1;
 }
 
-.letter {
-  opacity: 0;
-  animation: fadeInUp 0.4s forwards;
-}
-
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-  }
-}
-
 .heroTitle {
-    display: flex;
-    align-items: center;
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: bold;
-    overflow: hidden;
-    position: relative;
-    white-space: nowrap;
-}
-
-.glass {
-    font-size: 3rem;
-    font-weight: bold;
-    z-index: 2;
-    position: relative;
-    margin-right: 0.5rem;
-}
-
-.revealText {
-    display: inline-block;
-    font-size: 3rem;
-    font-weight: bold;
-    color: var(--color-accent);
-    margin-bottom: 1rem;
 }
 
 .subtitle {
     font-size: 1.25rem;
     color: white;
     margin: 0 auto 2rem;
+}
+
+.analyzeContainer {
+  margin: auto;
+  width: 550px;
 }

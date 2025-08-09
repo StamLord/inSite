@@ -6,21 +6,12 @@ const AnalyzeContainer = () => {
     return (
         <div className={styles.content}>
             <div className={styles.heroTitle}>
-                <span className={styles.glass}>🔍</span>
-                <span className={styles.revealText}>
-                    {'inSite Analyzer'.split('').map((char, i) => (
-                        <span
-                            key={i}
-                            className={styles.letter}
-                            style={{ animationDelay: `${i * 0.05}s` }}
-                        >
-                            {char === ' ' ? '\u00A0' : char}
-                        </span>
-                    ))}
-                </span>
+                <h3>See How AI Answers Talk About Your Brand</h3>
             </div>
-            <p className={styles.subtitle}>Enter a website URL to analyze its Answer Engine Optimization.</p>
-            <Analyze/>
+            <p className={styles.subtitle}>Enter your site’s URL to discover how AI search engines rank and describe you — and how to improve it.</p>
+            <div className={styles.analyzeContainer}>
+                <Analyze/>
+            </div>
         </div>
     );
 };
