@@ -6,7 +6,7 @@ const Score = ({ score }) => {
     return (
         <div className={styles.scoreCircle} style={{"--score": score}}>
             <div className={styles.scoreCircleInner}>
-                <span>{score}</span>
+                <span className={styles.centered}>{score}</span>
             </div>
         </div>
     );

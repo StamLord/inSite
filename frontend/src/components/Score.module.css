@@ -24,4 +24,11 @@
     justify-content: center;
     font-weight: bold;
     color: var(--color-accent);
+    
+}
+
+.centered {
+    position: relative;
+    top: -2px;
+    left: -1px;
 }
