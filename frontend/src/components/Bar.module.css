@@ -1,7 +1,7 @@
 .progressBarContainer {
     height: 30px;
     width: 100%;
-    background-color: black;
+    background-color: var(--color-card);
     position:relative; /* relative here */
     overflow: hidden;
     border-radius: 50px;
