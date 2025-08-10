@@ -1,0 +1,25 @@
+.progressBarContainer {
+    height: 30px;
+    width: 100%;
+    background-color: black;
+    position:relative; /* relative here */
+    overflow: hidden;
+    border-radius: 50px;
+}
+
+.progressBarMask {
+    height: 100%;
+    overflow: hidden;
+    border-radius: 50px;
+}
+
+.progressBarIndicator {
+    height: 100%;
+    position: relative;
+    background: linear-gradient(
+        to right,
+        #e74c3c 0%,    /* bad */
+        #e67e22 50%,   /* medium */
+        #27ae60 100%   /* good */
+    );
+}

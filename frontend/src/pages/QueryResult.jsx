@@ -6,6 +6,7 @@ import Loader from '../components/Loader';
 import Score from '../components/Score';
 import { getRecommendations } from '../utils/recommendations';
 import Footer from '../components/Footer';
+import Bar from '../components/Bar';
 
 const API_URL = process.env.REACT_APP_QUERY_SVC_URL;
 
@@ -102,8 +103,18 @@ function QueryResult() {
 
     const [activeTab, setActiveTab] = useState("summary");
     
-    function setActive(tabId) {
-
+    function getConfidenceScore() {
+        if (result == null)
+            return 0;
+        
+        if (result.confidence == "high")
+            return 100;
+        
+        if (result.confidence == "medium")
+            return 50;
+        
+        if (result.confidence == "low")
+            return 25;
     }
 
     return (
@@ -185,6 +196,7 @@ function QueryResult() {
                             <div className={styles.resultCol}>
                                 <div className={styles.resultItem}>
                                     <p>Confidence: {CapitalizeFirstLetter("" + result.confidence)}</p>
+                                    <Bar score={getConfidenceScore()}/>
                                 </div>
                                 <div className={styles.resultItem}>
                                     <p>Reasoning: {result.reasoning}</p>
