@@ -28,14 +28,6 @@ a:hover {
     padding-left: 5rem;
 }
 
-.nav_logo a {
-    color: var(--color-accent);
-}
-
-.nav_logo a:hover {
-    color: white;
-}
-
 .nav_center {
     margin: 1rem;
     padding: 0.5rem 4rem;
