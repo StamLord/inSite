@@ -129,9 +129,7 @@ function QueryResult() {
 
             {result && result.status == "complete" &&
             <>
-            <div className={styles.title}>
-                <h2>Your AI Search Visibility Report for {result.site_url}</h2>
-            </div>
+            <h2 className={styles.title}>Your AI Search Visibility Report for {result.site_url}</h2>
             <div className={styles.card}>
                 <div className={styles.tabs}>
                     {tabs.map(tab => (
@@ -221,9 +219,17 @@ function QueryResult() {
                                         {visibleAnswers[index]
                                             ?   <div>
                                                     <ul className={styles.promptAnswers}>
-                                                        {result.answers[index].map((ans, i) => (
-                                                            <li key={i} className={styles.answer}>{ans}</li>
-                                                        ))}
+                                                        {result.answers[index].map((ans, i) => {
+                                                            const min_url = result.site_url.split(".")[0]
+                                                            const regex = new RegExp(min_url, "i");
+                                                            const isMatch = regex.test(ans);
+
+                                                            return (
+                                                               <li key={i} className={`${isMatch ? styles.highlightAnswer : ""}`}>
+                                                                    {isMatch? "✔️" : ""} {ans}
+                                                                </li>
+                                                            );
+                                                        })}
                                                     </ul>
                                                     <p className={styles.promptTip} onClick={() => {ToggleAnswer(index)}}>˄ Hide Answer ˄</p>
                                                 </div>
