@@ -108,13 +108,13 @@ function QueryResult() {
         if (result == null)
             return 0;
         
-        if (result.confidence == "high")
+        if (result.confidence === "high")
             return 100;
         
-        if (result.confidence == "medium")
+        if (result.confidence === "medium")
             return 50;
         
-        if (result.confidence == "low")
+        if (result.confidence === "low")
             return 25;
     }
 
@@ -125,9 +125,9 @@ function QueryResult() {
             {loading && <Loader/>}
             {error && <p className={styles.error}>Error: {error}</p>}
             
-            {result && result.status == "pending" && <QueryProgress/>}
+            {result && result.status === "pending" && <QueryProgress/>}
 
-            {result && result.status == "complete" &&
+            {result && result.status === "complete" &&
             <>
             <h2 className={styles.title}>Your AI Search Visibility Report for {result.site_url}</h2>
             <div className={styles.card}>
@@ -312,10 +312,16 @@ function QueryResult() {
                                     </thead>
                                     <tbody>
                                         {result.scrape && Object.entries(result.scrape.key_factors).map(([key, value]) => {
+                                            const lower = value.toLowerCase();
+                                            const score = lower === "missing" || lower === "weak" ? "bad" : lower === "not enough info"? "mid" : "good";
                                             return (
                                                 <tr>
                                                     <td>{key}</td>
-                                                    <td>{value}</td>
+                                                    <td>
+                                                        <span className={score === "bad"? styles.overviewBad : score === "mid" ? styles.overviewMid : ""}>
+                                                            {value}
+                                                        </span>
+                                                    </td>
                                                 </tr>
                                             );
                                         })}
@@ -333,10 +339,16 @@ function QueryResult() {
                                     </thead>
                                     <tbody>
                                         {result.technical_scan && Object.entries(result.technical_scan).map(([key, value]) => {
+                                            const lower = value.toLowerCase();
+                                            const score = lower === "missing" || lower === "weak" ? "bad" : lower === "not enough info"? "mid" : "good";
                                             return (
                                                 <tr>
                                                     <td>{key}</td>
-                                                    <td>{value}</td>
+                                                    <td>
+                                                        <span className={score === "bad"? styles.overviewBad : score === "mid" ? styles.overviewMid : styles.overviewGood}>
+                                                            {value}
+                                                        </span>
+                                                    </td>
                                                 </tr>
                                             );
                                         })}
