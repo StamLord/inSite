@@ -52,6 +52,6 @@ export default function QueryProgress() {
                     <span className={styles.dot}></span>
                     <span className={styles.dot}></span>
                 </div>
-                <p>This deep analysis might take between 2-5 minutes.</p>
+                <p className={styles.analyzeText}>This deep analysis might take between 2-5 minutes.</p>
             </div>;
 };

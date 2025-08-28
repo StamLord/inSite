@@ -8,6 +8,7 @@ import { getRecommendations } from '../utils/recommendations';
 import Footer from '../components/Footer';
 import Bar from '../components/Bar';
 import QueryProgress from '../components/QueryProgress';
+import KeyAction from '../components/KeyAction';
 
 const API_URL = process.env.REACT_APP_QUERY_SVC_URL;
 
@@ -176,9 +177,14 @@ function QueryResult() {
                         <div className={styles.resultRow}>
                             <div className={styles.resultItem}>
                                 <h2 className={styles.subTitle}>Suggestions</h2>
-                                {recommendations.map((rec, index) => (
-                                    <p key={index}>{index + 1}. {rec.text}</p>
-                                ))}
+                                {recommendations.map((rec, index) => {
+                                    const tags = ["HIGH IMPACT", "QUICK WIN", "LOW IMPACT"];
+                                    const rand = tags[Math.floor(Math.random() * tags.length)]
+                                    return (
+                                        <KeyAction tag={rand} title="Title" description={rec.text}/>
+                                        // <p key={index}>{index + 1}. {rec.text}</p>
+                                    );
+                                })}
                             </div>
                         </div>
                     </div>
@@ -257,7 +263,7 @@ function QueryResult() {
                                     </div>
                                 </div>
                                 <div>
-                                    <h3>Summary</h3>
+                                    <h3 className={styles.structureTitle}>Summary</h3>
                                     {result.scrape.summary}
                                 </div>
                             </div>
@@ -302,7 +308,7 @@ function QueryResult() {
                         </div>
                         <div className={styles.resultRow}>
                             <div className={styles.resultItem}>
-                                <h3>Overview</h3>
+                                <h3 className={styles.structureTitle}>Overview</h3>
                                 <table className={`${styles.styledTable} ${styles.fullTable}`}>
                                     <thead>
                                         <tr>
@@ -329,7 +335,7 @@ function QueryResult() {
                                 </table>
                             </div>
                             <div className={styles.resultItem}>
-                                <h3>Technical Scan</h3>
+                                <h3 className={styles.structureTitle}>Technical Scan</h3>
                                 <table className={`${styles.styledTable} ${styles.fullTable}`}>
                                     <thead>
                                         <tr>
@@ -357,7 +363,7 @@ function QueryResult() {
                             </div>
                         </div>
                         <div className={styles.resultItem}>
-                            <h3>Recommendations</h3>
+                            <h3 className={styles.structureTitle}>Recommendations</h3>
                             {result.scrape && result.scrape.recommendations}
                         </div>
                     </div>

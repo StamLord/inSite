@@ -1,0 +1,44 @@
+.container {
+    margin-bottom: 4rem;
+}
+
+.header {
+    display: flex;
+    justify-content: start;
+    gap: 1rem;
+}
+
+.tag {
+    padding: 0 2rem;
+    font-weight: bold;
+    border-radius: 4px;
+    align-content: center;
+    min-width: 100px;
+    max-height: 50px;
+}
+
+.green {
+    background-color: #27ae60;
+}
+
+.orange {
+    background-color: #e67e22;
+}
+
+.red {
+    background-color: #e74c3c;
+}
+
+.purple {
+    background-color: #4d257c;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: normal;
+    margin: 0;
+}
+
+.description {
+    text-align: start;
+}
