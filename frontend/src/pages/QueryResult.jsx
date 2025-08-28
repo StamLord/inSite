@@ -7,6 +7,7 @@ import Score from '../components/Score';
 import { getRecommendations } from '../utils/recommendations';
 import Footer from '../components/Footer';
 import Bar from '../components/Bar';
+import QueryProgress from '../components/QueryProgress';
 
 const API_URL = process.env.REACT_APP_QUERY_SVC_URL;
 
@@ -123,8 +124,10 @@ function QueryResult() {
 
             {loading && <Loader/>}
             {error && <p className={styles.error}>Error: {error}</p>}
+            
+            {result && result.status == "pending" && <QueryProgress/>}
 
-            {result &&
+            {result && result.status == "complete" &&
             <>
             <div className={styles.title}>
                 <h2>Your AI Search Visibility Report for {result.site_url}</h2>
