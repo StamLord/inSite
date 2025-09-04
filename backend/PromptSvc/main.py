@@ -1,15 +1,20 @@
-from fastapi import FastAPI, Depends, BackgroundTasks
+from fastapi import FastAPI, Depends, BackgroundTasks, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from uuid import uuid4
-from db import SessionLocal, engine
-from models import Base, QueryRecord
-from schemas import QueryRequest, QueryResponse, ScrapeResponse
-from openai_client import get_brand_recognition, get_prompts_chatgpt, ask_chatgpt, get_optimization_score
-from score import get_score
+from db.db import SessionLocal, engine
+from db.models import Base, QueryRecord, UserRecord
+from api.schemas.query import QueryRequest, QueryResponse
+from api.schemas.scrape import ScrapeResponse
+from api.schemas.user import UserCreateRequest, UserLoginRequest, UserLoginResponse, UserRegisterResponse, GetUserResponse
+from api.openai_client import get_brand_recognition, get_prompts_chatgpt, ask_chatgpt, get_optimization_score
+from api.score import get_score
 from datetime import datetime
-from url_utils import minimize_url, maximize_url
-from scraper import scrape_site
+from api.url_utils import minimize_url, maximize_url
+from api.scraper import scrape_site
+from api.encrypt import hash_password, verify_password
+from api.auth import create_access_token, verify_access_token
 import os
 from dotenv import load_dotenv
 
@@ -142,3 +147,55 @@ def scrape(url: str):
     summary = get_optimization_score(scraped)
 
     return summary, technical_scan
+
+
+@app.post("/register", response_model=UserRegisterResponse)
+def register(user: UserCreateRequest, db: Session = Depends(get_db)):
+    # User already exists
+    if db.query(UserRecord).filter(UserRecord.email == user.email).first():
+        raise HTTPException(status_code=400, detail="Email already registered")
+
+    qid = str(uuid4())
+    new_user = UserRecord(
+        id=qid,
+        email=user.email,
+        password=hash_password(user.password)
+    )
+
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return UserRegisterResponse(message="success")
+
+
+@app.post("/login", response_model=UserLoginResponse)
+def login(user: UserLoginRequest, db: Session = Depends(get_db)):
+    db_user = db.query(UserRecord).filter(UserRecord.email == user.email).first()
+    if not db_user or not verify_password(user.password, db_user.password):
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+
+    token = create_access_token({"sub": db_user.id})
+    return {"access_token": token, "token_type": "bearer"}
+
+
+# Extract token from Authorization header
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+JWT_EXCEPTION = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+
+
+@app.get("/get_me", response_model=GetUserResponse)
+def get_me(token: str = Depends(oauth2_scheme)) -> str:
+    payload = verify_access_token(token)
+    if payload is None:
+        raise JWT_EXCEPTION
+
+    user_id = payload.get("sub")
+    if user_id is None:
+        raise JWT_EXCEPTION
+
+    return GetUserResponse(user_id=user_id)

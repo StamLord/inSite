@@ -1,7 +1,7 @@
 from sqlalchemy import Column, String, DateTime, Text, CheckConstraint
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.sql import func
-from db import Base
+from db.db import Base
 
 
 class QueryRecord(Base):
@@ -26,3 +26,13 @@ class QueryRecord(Base):
     __table_args__ = (
         CheckConstraint("status IN ('pending', 'complete', 'error')", name="status_check"),
     )
+
+
+class UserRecord(Base):
+    __tablename__ = "users"
+
+    id = Column(String, primary_key=True)
+    email = Column(String, unique=True, index=True, nullable=False)
+    password = Column(String, nullable=False)
+    created_at = Column(DateTime, server_default=func.now())
+    last_login = Column(DateTime, nullable=True)

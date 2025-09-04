@@ -1,5 +1,4 @@
-import json
-from url_utils import normalize_url
+from api.url_utils import normalize_url
 
 
 # 1st -> 100, 2nd -> 90, 10th -> 10

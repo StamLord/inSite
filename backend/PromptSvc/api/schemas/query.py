@@ -25,10 +25,3 @@ class QueryResponse(BaseModel):
     error: Optional[str] = None
 
     model_config = ConfigDict(from_attributes=True)
-
-
-class ScrapeResponse(BaseModel):
-    site_url: str
-    summary: dict
-    technical_scan: dict
-
