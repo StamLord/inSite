@@ -1,5 +1,4 @@
-from fastapi import FastAPI, Depends, BackgroundTasks, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
+from fastapi import FastAPI, Depends, BackgroundTasks, HTTPException, status, Response, Cookie
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from uuid import uuid4
@@ -7,7 +6,7 @@ from db.db import SessionLocal, engine
 from db.models import Base, QueryRecord, UserRecord
 from api.schemas.query import QueryRequest, QueryResponse
 from api.schemas.scrape import ScrapeResponse
-from api.schemas.user import UserCreateRequest, UserLoginRequest, UserLoginResponse, UserRegisterResponse, GetUserResponse
+from api.schemas.user import UserCreateRequest, UserLoginRequest, UserRegisterResponse, GetUserResponse
 from api.openai_client import get_brand_recognition, get_prompts_chatgpt, ask_chatgpt, get_optimization_score
 from api.score import get_score
 from datetime import datetime
@@ -168,18 +167,25 @@ def register(user: UserCreateRequest, db: Session = Depends(get_db)):
     return UserRegisterResponse(message="success")
 
 
-@app.post("/login", response_model=UserLoginResponse)
-def login(user: UserLoginRequest, db: Session = Depends(get_db)):
+@app.post("/login")
+def login(user: UserLoginRequest, response: Response, db: Session = Depends(get_db)):
     db_user = db.query(UserRecord).filter(UserRecord.email == user.email).first()
     if not db_user or not verify_password(user.password, db_user.password):
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
     token = create_access_token({"sub": db_user.id})
-    return {"access_token": token, "token_type": "bearer"}
 
+    response.set_cookie(
+        key="access_token",
+        value=token,
+        httponly=True,
+        secure=True,
+        samesite="none",
+        max_age=3600
+    )
 
-# Extract token from Authorization header
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+    return {"message": "Logged in successfully"}
+
 
 JWT_EXCEPTION = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -188,8 +194,14 @@ JWT_EXCEPTION = HTTPException(
     )
 
 
+def get_token_from_cookie(access_token: str = Cookie(None)):
+    if not access_token:
+        raise JWT_EXCEPTION
+    return access_token
+
+
 @app.get("/get_me", response_model=GetUserResponse)
-def get_me(token: str = Depends(oauth2_scheme)) -> str:
+def get_me(token: str = Depends(get_token_from_cookie)):
     payload = verify_access_token(token)
     if payload is None:
         raise JWT_EXCEPTION
