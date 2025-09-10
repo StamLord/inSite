@@ -27,6 +27,8 @@ origins = [
     os.getenv("CROSS_ORIGIN_FRONTEND_URL"),
 ]
 
+cookie_domain = os.getenv("COOKIE_DOMAIN")
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -181,7 +183,8 @@ def login(user: UserLoginRequest, response: Response, db: Session = Depends(get_
         httponly=True,
         secure=True,
         samesite="none",
-        max_age=3600
+        max_age=3600,
+        domain=cookie_domain
     )
 
     return {"message": "Logged in successfully"}
