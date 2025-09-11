@@ -10,7 +10,7 @@ export default function UserInfo() {
         <div className={styles.loginContainer}>
             {user? 
                 <div className={styles.welcomeWrapper}>
-                    <span className={styles.welcomeMessage}>Logged in as {user.split("@")[0]}</span>
+                    <span className={styles.welcomeMessage}>Logged in as {user.email.split("@")[0]}</span>
                     <button className={styles.loginButton}>Logout</button>
                 </div>
             :
