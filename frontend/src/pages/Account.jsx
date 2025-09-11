@@ -25,7 +25,6 @@ export default function Account() {
         const res = await fetch(API_URL + endpoint, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            mode: "cors",
             credentials: "include",
             body: JSON.stringify({ 
                 "email" : email, 
