@@ -5,9 +5,13 @@ export default function Wakeup() {
     const API_URL = process.env.REACT_APP_QUERY_SVC_URL;
 
     useEffect(async () => {
-        const res = await fetch(API_URL + "/fake_api", {
-            method: "GET"
-        });
+        try {
+            await fetch(API_URL + "/fake_api", {
+                method: "GET"
+            });
+        } catch (err) {
+            return;
+        }
     }, []);
 
     return null;
