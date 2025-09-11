@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import styles from './QueryResult.module.css';
 import Navbar from '../components/Navbar';
@@ -18,11 +18,11 @@ function CapitalizeFirstLetter(str) {
 
 function QueryResult() {
     const { id } = useParams();
-    const [result, setResult] = React.useState(null);
-    const [loading, setLoading] = React.useState(true);
-    const [error, setError] = React.useState(null);
-    const [visibleAnswers, setVisibleAnswers] = React.useState([]);
-    const [recommendations, setRecommendations] = React.useState([]);
+    const [result, setResult] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [visibleAnswers, setVisibleAnswers] = useState([]);
+    const [recommendations, setRecommendations] = useState([]);
 
     let intervalId;
 
@@ -65,18 +65,13 @@ function QueryResult() {
         return Math.round((getPromptsScore() + getConfidenceScore() + getStructureScore()) / 3);
     }
 
-    React.useEffect(() => {
-        console.log("visibleAnswers updated:", visibleAnswers);
-        }, [visibleAnswers]);
-    
-    React.useEffect(() => {
+    useEffect(() => {
         if (result) {
             setRecommendations(getRecommendations(result, 3));
-            console.log(recommendations);
         }
     }, [result])
 
-    React.useEffect(() => {
+    useEffect(() => {
         async function fetchResult() {
             try {
                 const res = await fetch(API_URL + `/query/${id}`);
