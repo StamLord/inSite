@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();
 
@@ -14,7 +14,7 @@ export function AuthProvider({ children }) {
                     API_URL + "/get_me", 
                     { 
                         method: "GET",
-                        credentials: "include" 
+                        credentials: "include"
                     });
 
                 if (res.ok) {
@@ -40,3 +40,5 @@ export function AuthProvider({ children }) {
         </AuthContext.Provider>
     )
 }
+
+export const useAuth = () => useContext(AuthContext);

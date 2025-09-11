@@ -1,0 +1,44 @@
+.loginContainer {
+    margin: 1rem;
+    display: flex;
+    gap: 10px;
+    background: none;
+}
+
+.loginContainer button {
+    padding: 0rem 1rem;
+    border: 0;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.loginContainer button:hover {
+    background-color: var(--color-accent);
+}
+
+.loginButton {
+    background: var(--color-card);
+    color: white;
+}
+
+.demoButton {
+    background-color: white;
+}
+
+.demoButton:hover {
+    color: white;
+}
+
+.welcomeWrapper{
+    position: absolute;
+    right: 50px;
+    display: flex;
+    gap: 50px;
+    height: 50px;
+}
+
+.welcomeMessage {
+    align-content: center;
+    color: white;
+}
