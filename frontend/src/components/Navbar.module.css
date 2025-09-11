@@ -29,10 +29,13 @@ a:hover {
 }
 
 .nav_center {
-    margin: 1rem;
-    padding: 0.5rem 4rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     justify-content: center;
+    margin: 1rem;
+    padding: 0.5rem 4rem;
     gap: 4rem;
     color: white;
     background: var(--color-card);
