@@ -23,4 +23,5 @@ class UserLoginResponse(BaseModel):
 
 class GetUserResponse(BaseModel):
     user_id: str
+    email: EmailStr
 

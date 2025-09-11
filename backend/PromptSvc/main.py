@@ -204,7 +204,7 @@ def get_token_from_cookie(access_token: str = Cookie(None)):
 
 
 @app.get("/get_me", response_model=GetUserResponse)
-def get_me(token: str = Depends(get_token_from_cookie)):
+def get_me(token: str = Depends(get_token_from_cookie), db: Session = Depends(get_db)):
     payload = verify_access_token(token)
     if payload is None:
         raise JWT_EXCEPTION
@@ -213,4 +213,11 @@ def get_me(token: str = Depends(get_token_from_cookie)):
     if user_id is None:
         raise JWT_EXCEPTION
 
-    return GetUserResponse(user_id=user_id)
+    db_user = db.get(UserRecord, user_id)
+    if not db_user:
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+
+    return GetUserResponse(
+        user_id=user_id,
+        email=db_user.email
+    )
