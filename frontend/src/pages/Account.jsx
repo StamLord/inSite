@@ -2,10 +2,12 @@ import { useState } from "react";
 import styles from "./Account.module.css";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Account() {
     const API_URL = process.env.REACT_APP_QUERY_SVC_URL;
     const navigate = useNavigate();
+    const { fetchUser } = useAuth();
 
     const [isSignup, setIsSignup] = useState(false);
     const [email, setEmail] = useState("");
@@ -32,8 +34,10 @@ export default function Account() {
             })
         })
 
-        if (res.ok)
+        if (res.ok) {
+            fetchUser();
             navigate("/");
+        }
         else {
             const data = await res.json()
             setFormError(data.detail);
