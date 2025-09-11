@@ -29,7 +29,8 @@
 }
 
 .centered {
+    color: var(--circle-color);
     position: relative;
-    top: -2px;
-    left: -1px;
+    width: 100%;
+    text-align: center;
 }
