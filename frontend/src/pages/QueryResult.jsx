@@ -37,21 +37,32 @@ function QueryResult() {
         });
     }
 
-    function GetTotalScore(data) {
-        if (!data.scores)
+    function getPromptsScore() {
+        if (!result?.scores)
             return 0;
 
         let score = 0;
 
-        for (let s in data.scores)
-            score += data.scores[s];
+        for (let s in result.scores)
+            score += result.scores[s];
         
-        score = score / data.scores.length;
+        score = score / result.scores.length;
 
-        if (data.scrape)
-            score = Math.floor(score * .9 + data.scrape.overall_score * .1);
+        if (result.scrape)
+            score = Math.floor(score * .9 + result.scrape.overall_score * .1);
 
         return score;
+    }
+
+    function getStructureScore() {
+        if (!result?.scrape)
+            return 0;
+
+        return result.scrape.overall_score;
+    }
+
+    function getTotalScore() {
+        return Math.round((getPromptsScore() + getConfidenceScore() + getStructureScore()) / 3);
     }
 
     React.useEffect(() => {
@@ -151,26 +162,26 @@ function QueryResult() {
                                 <div className={styles.summaryLine}>
                                     <p>Brand</p>
                                     <div className={styles.summaryPartScore}>
-                                        <Score score={result.scores[0]}/>
+                                        <Score score={getConfidenceScore()}/>
                                     </div>
                                  </div>
                                 <div className={styles.summaryLine}>
                                     <p>Prompts</p>
                                     <div className={styles.summaryPartScore}>
-                                        <Score score={result.scores[0]}/>
+                                        <Score score={getPromptsScore()}/>
                                     </div>
                                 </div>
                                 <div className={styles.summaryLine}>
                                     <p>Structure</p>
                                     <div className={styles.summaryPartScore}>
-                                        <Score score={result.scores[0]}/>
+                                        <Score score={getStructureScore()}/>
                                     </div>
                                 </div>
                             </div>
                             <div className={`${styles.resultItem} ${styles.suggestionCard}`}>
                                 <h2>Total Score</h2>
                                 <div class={styles.summaryScore}>
-                                    <Score score={GetTotalScore(result)}/>
+                                    <Score score={getTotalScore()}/>
                                 </div>
                             </div>
                         </div>
