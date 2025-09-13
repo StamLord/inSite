@@ -8,7 +8,7 @@ const AnalyzeContainer = () => {
             <div className={styles.heroTitle}>
                 <h3>Your Brand, According to AI</h3>
             </div>
-            <p className={styles.subtitle}>Paste your website URL to uncover how AI sees you and learn how to shape the store.</p>
+            <p className={styles.subtitle}>Paste your website URL to uncover how AI sees you and learn how to shape the story.</p>
             <div className={styles.analyzeContainer}>
                 <Analyze/>
             </div>

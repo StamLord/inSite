@@ -202,7 +202,7 @@ function QueryResult() {
                             <div className={styles.resultItem}>
                                 <h2>Brand Recognition</h2>
                                 <div>
-                                    <p>Recognized: {CapitalizeFirstLetter("" + result.known)}</p>
+                                    <p>Recognized: {result.known? "✔️" : "❌"}</p>
                                     <p>Summary: {result.summary}</p>
                                 </div>
                             </div>
@@ -325,12 +325,16 @@ function QueryResult() {
                                     <tbody>
                                         {result.scrape && Object.entries(result.scrape.key_factors).map(([key, value]) => {
                                             const lower = value.toLowerCase();
-                                            const score = lower === "missing" || lower === "weak" ? "bad" : lower === "not enough info"? "mid" : "good";
+                                            const score = lower === "missing" || lower === "weak" || lower === "shallow"? "bad" : lower === "not enough info"? "mid" : "good";
                                             return (
                                                 <tr>
                                                     <td>{key}</td>
                                                     <td>
-                                                        <span className={score === "bad"? styles.overviewBad : score === "mid" ? styles.overviewMid : ""}>
+                                                        <span className={`${styles.overviewResult} ${
+                                                            score === "bad"? styles.bad : 
+                                                            score === "mid" ? styles.mid : 
+                                                            styles.good
+                                                        }`}>
                                                             {value}
                                                         </span>
                                                     </td>
@@ -352,12 +356,16 @@ function QueryResult() {
                                     <tbody>
                                         {result.technical_scan && Object.entries(result.technical_scan).map(([key, value]) => {
                                             const lower = value.toLowerCase();
-                                            const score = lower === "missing" || lower === "weak" ? "bad" : lower === "not enough info"? "mid" : "good";
+                                            const score = lower === "missing" || lower === "weak"? "bad" : lower === "not enough info"? "mid" : "good";
                                             return (
                                                 <tr>
                                                     <td>{key}</td>
                                                     <td>
-                                                        <span className={score === "bad"? styles.overviewBad : score === "mid" ? styles.overviewMid : styles.overviewGood}>
+                                                        <span className={`${styles.overviewResult} ${
+                                                            score === "bad"? styles.bad : 
+                                                            score === "mid" ? styles.mid : 
+                                                            styles.good
+                                                        }`}>
                                                             {value}
                                                         </span>
                                                     </td>
