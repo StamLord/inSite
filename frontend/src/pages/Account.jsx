@@ -3,6 +3,7 @@ import styles from "./Account.module.css";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import Footer from "../components/Footer";
 
 export default function Account() {
     const API_URL = process.env.REACT_APP_QUERY_SVC_URL;
@@ -92,14 +93,18 @@ export default function Account() {
                         {isSignup ? "Sign Up" : "Login"}
                     </button>
                     
-                    {isSignup?
-                        <p>Already have an account? <a onClick={() => setIsSignup(false)}>Login</a></p>
-                        :
-                        <p>Don't have an account? <a onClick={() => setIsSignup(true)}>Sign Up</a></p>
-                    }
+                   
+                    <div className={styles.signupMessage}>
+                        {isSignup?
+                            <p>Already have an account? <a onClick={() => setIsSignup(false)}>Login</a></p>
+                            :
+                            <p>Don't have an account? <a onClick={() => setIsSignup(true)}>Sign Up</a></p>
+                        }
+                    </div>
                     
                 </form>
             </div>
+            <Footer />
         </div>
     );
 }
