@@ -1,7 +1,7 @@
 @import '../styles/variables.css';
 
 .container {
-    padding: 4rem 0;
+    padding: 4rem 8rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,7 +10,6 @@
 .mainBody{
     display: flex;
     justify-content: center;
-    transform: translateX(120px);
 }
 
 h1 {
@@ -28,39 +27,27 @@ h1 {
 }
 
 .pointsContainer {
-    width: 350px;
+    display: flex;
+    gap: 4rem;
 }
 
 .pointsContainer h3 {
     margin: 0;
+    margin-bottom: rem;
+    color: var(--color-accent);
+    font-size: 1.5rem;
+    font-weight: 400;
 }
 
 .point {
+    flex: 1;
     margin-bottom: 2rem;
-    padding: 2rem 2rem 2rem 4rem;
+    padding: 2rem;
     color: white;
-     transform: translateX(-25px);
-}
-
-.point:nth-child(odd) {
     border: 1px solid var(--color-muted);
     border-radius: 30px;
     background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
-    transform: translateX(100px);
-}
-
-.pointIcon {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    position: absolute;
-    transform: translate(-40px, 25px);
-    background-color: white;
-}
-
-.point:nth-child(odd) .pointIcon {
-    background-color: var(--color-accent);
 }
 
 .actionContainer {

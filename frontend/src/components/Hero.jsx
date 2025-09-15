@@ -3,6 +3,11 @@ import styles from './Hero.module.css';
 import AnalyzeContainer from './AnalyzeContainer';
 import Footer from './Footer';
 import { useNavigate } from 'react-router-dom';
+import heroVideo from "../assets/videos/hero_vid.mp4";
+
+import logo_1 from "../assets/customers/db_logo.png";
+import logo_2 from "../assets/customers/lenderpanel_logo.png";
+import logo_3 from "../assets/customers/lex_logo.jpg";
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -20,14 +25,14 @@ const Hero = () => {
                   <h2>Our Customers</h2>
                 </div>
                 <div className={styles.customerList}>
-                  <div className={styles.customerBubble}></div>
-                  <div className={styles.customerBubble}></div>
-                  <div className={styles.customerBubble}></div>
+                  <div className={styles.customerBubble}><img src={logo_1} alt="Customer" /></div>
+                  <div className={styles.customerBubble}><img src={logo_2} alt="Customer" /></div>
+                  <div className={styles.customerBubble}><img src={logo_3} alt="Customer" /></div>
                 </div>
                 <div className={styles.customerQuotes}>
                   <div className={styles.quote}>"We discovered blind spots we didn’t even know we had."</div>
                   <div className={styles.quote}>"Finally, a clear way to see how our site performs in AI-powered search. The recommendations were spot on and helped us fix issues that were hurting our visibility.”</div>
-                  <div className={styles.quote}>"It’s like SEO for the future. We optimized for Google for years — now we’re optimizing for ChatGPT and beyond, thanks to this tool.”</div>
+                  <div className={styles.quote}>"It’s like SEO for the future. We optimized for Google for years but now we’re optimizing for ChatGPT and beyond.”</div>
                 </div>
               </div>
               <div className={styles.actionButtons}>
@@ -37,7 +42,14 @@ const Hero = () => {
             </div>
           </div>
           <div className={styles.video}>
-            Video showcasing a user asking AI for Recommendation.
+            <video 
+              autoPlay 
+              loop 
+              muted
+            >
+              <source src={heroVideo} type="video/mp4"/>
+              Video showcasing a user asking AI for Recommendation.
+            </video>
           </div>
         </div>
     </section>
