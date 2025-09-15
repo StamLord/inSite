@@ -243,9 +243,9 @@ function QueryResult() {
                                                             );
                                                         })}
                                                     </ul>
-                                                    <p className={styles.promptTip} onClick={() => {ToggleAnswer(index)}}>˄ Hide Answer ˄</p>
+                                                    <p className={styles.showAnswer} onClick={() => {ToggleAnswer(index)}}>Hide Answer</p>
                                                 </div>
-                                            :   <p className={styles.promptTip} onClick={() => {ToggleAnswer(index)}}>˅ Show Answer ˅</p>
+                                            :   <p className={styles.showAnswer} onClick={() => {ToggleAnswer(index)}}>Show Answer</p>
                                         }
                                     </div>
                                     <div className={styles.promptScore}>

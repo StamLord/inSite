@@ -139,6 +139,22 @@ h2, .structureTitle {
     position: relative;
 }
 
+.showAnswer {
+    display: inline;
+    margin: 0;
+    padding: 0.3rem 1rem;
+    background-color: var(--color-accent);
+    border-radius: 8px;
+    opacity: 0.75;
+    font-size: smaller;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.showAnswer:hover {
+    opacity: 1;
+}
+
 .promptTip {
     margin-top: -20px;
     color: var(--color-tip)
