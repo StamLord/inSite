@@ -5,6 +5,14 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background-color: black; /* fallback */
+  background-image: 
+    radial-gradient(circle at -20% 20%, var(--color-bg-1) 0%, transparent 25%),
+    radial-gradient(circle at 100% 30%, var(--color-bg-1) 0%, transparent 60%),
+    radial-gradient(circle at 70% 135%, var(--color-secondary) 0%, transparent 35%),
+    radial-gradient(circle at 50% 135%, var(--color-primary) 0%, transparent 35%),
+    radial-gradient(circle at 110% 0%, var(--color-secondary) 0%, transparent 20%);
 }
 
 code {
