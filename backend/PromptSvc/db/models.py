@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, DateTime, Text, CheckConstraint
+from sqlalchemy import Column, String, Date, DateTime, Text, CheckConstraint, Integer, UniqueConstraint
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.sql import func
 from db.db import Base
@@ -36,3 +36,16 @@ class UserRecord(Base):
     password = Column(String, nullable=False)
     created_at = Column(DateTime, server_default=func.now())
     last_login = Column(DateTime, nullable=True)
+
+
+class IPRecord(Base):
+    __tablename__ = "ips"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    ip = Column(String, nullable=False, index=True)
+    date = Column(Date, server_default=func.current_date())
+    count = Column(Integer, nullable=False, default=0)
+
+    __table_args__ = (
+        UniqueConstraint("ip", "date", name="uix_ip_date"),
+    )

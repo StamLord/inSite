@@ -1,9 +1,11 @@
-from fastapi import FastAPI, Depends, BackgroundTasks, HTTPException, status, Response, Cookie
+from fastapi import FastAPI, Depends, BackgroundTasks, HTTPException, status, Request, Response, Cookie
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
+from sqlalchemy.dialects.postgresql import insert
 from uuid import uuid4
 from db.db import SessionLocal, engine
-from db.models import Base, QueryRecord, UserRecord
+from db.models import Base, QueryRecord, UserRecord, IPRecord
+from datetime import date
 from api.schemas.query import QueryRequest, QueryResponse
 from api.schemas.scrape import ScrapeResponse
 from api.schemas.user import UserCreateRequest, UserLoginRequest, UserRegisterResponse, GetUserResponse
@@ -28,6 +30,7 @@ origins = [
 ]
 
 cookie_domain = os.getenv("COOKIE_DOMAIN")
+MAX_DAILY_QUERIES = int(os.getenv("MAX_DAILY_QUERIES", 5))
 
 app.add_middleware(
     CORSMiddleware,
@@ -48,9 +51,39 @@ def get_db():
         db.close()
 
 
+def get_ip(req):
+    ip = req.client.host
+
+    forwarded = req.headers.get("X-Forwarded-For")
+    if forwarded:
+        ip = forwarded.split(",")[0]
+
+    return ip
+
+
+def increment_ip_count(db, ip):
+    stmt = insert(IPRecord).values(ip=ip, date=date.today(), count=1)
+    stmt = stmt.on_conflict_do_update(
+        index_elements={"ip", "date"},
+        set_={"count": IPRecord.count + 1}
+    ).returning(IPRecord.count)
+
+    new_count = db.execute(stmt).scalar_one()
+    db.commit()
+    return new_count
+
+
 @app.post("/query", response_model=QueryResponse)
-def submit_query(req: QueryRequest, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
+def submit_query(req: QueryRequest, request: Request, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
     print(f"Got new query request: {req}")
+
+    ip = get_ip(request)
+    count = increment_ip_count(db, ip)
+    print(f"From: {ip} uses: {count}/{MAX_DAILY_QUERIES}")
+
+    if count > MAX_DAILY_QUERIES:
+        raise HTTPException(status_code=429, detail="Max daily limit reached")
+
     qid = str(uuid4())
     entry = QueryRecord(id=qid, site_url=req.url)
     db.add(entry)
