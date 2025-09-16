@@ -175,6 +175,28 @@ def submit_scrape(req: QueryRequest, background_tasks: BackgroundTasks):
         )
 
 
+@app.post("/upvote/{query_id}", status_code=status.HTTP_204_NO_CONTENT)
+def upvote(query_id: str, db: Session = Depends(get_db)):
+    report = db.get(QueryRecord, query_id)
+
+    if not report:
+        raise HTTPException(status_code=404, detail="Report not found")
+
+    report.feedback = 1
+    db.commit()
+
+
+@app.post("/downvote/{query_id}", status_code=status.HTTP_204_NO_CONTENT)
+def downvote(query_id: str, db: Session = Depends(get_db)):
+    report = db.get(QueryRecord, query_id)
+
+    if not report:
+        raise HTTPException(status_code=404, detail="Report not found")
+
+    report.feedback = -1
+    db.commit()
+
+
 def scrape(url: str):
     url = maximize_url(url)
     scraped, technical_scan = scrape_site(url)

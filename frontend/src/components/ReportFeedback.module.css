@@ -1,0 +1,56 @@
+.feedbackContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    color: var(--color-muted);
+    margin-bottom: 1.5rem;
+    align-items: center;
+}
+
+.feedbackContainer p {
+    flex: 1;
+    text-align: end;
+    margin: 0;
+}
+
+.feedbackButtonsContainer {
+    display: flex;
+    gap: 0.7rem;
+}
+
+.feedbackButtonsContainer button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 50px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.feedbackButtonsContainer button:hover {
+    transform: scale(125%);
+    box-shadow: 0 0 10px -3px;
+}
+
+.thumbsUp {
+    background-color: #27ae60;
+}
+
+.thumbsDown {
+    background-color: #e74c3c;
+}
+
+.thumbsUp svg{
+    transform: translateY(-2px);
+}
+
+.thumbsDown svg{
+    transform: translateY(2px);
+}
+
+button.inactive {
+    opacity: 0.5;
+}

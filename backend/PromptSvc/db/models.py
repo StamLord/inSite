@@ -22,6 +22,7 @@ class QueryRecord(Base):
     scrape = Column(JSONB, nullable=True)
     technical_scan = Column(JSONB, nullable=True)
     error = Column(Text, nullable=True)
+    feedback = Column(Integer, nullable=False, default=0)
 
     __table_args__ = (
         CheckConstraint("status IN ('pending', 'complete', 'error')", name="status_check"),

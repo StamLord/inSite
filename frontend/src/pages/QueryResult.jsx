@@ -9,6 +9,7 @@ import Footer from '../components/Footer';
 import Bar from '../components/Bar';
 import QueryProgress from '../components/QueryProgress';
 import KeyAction from '../components/KeyAction';
+import ReportFeedback from '../components/ReportFeedback';
 
 const API_URL = process.env.REACT_APP_QUERY_SVC_URL;
 
@@ -128,7 +129,7 @@ function QueryResult() {
     return (
         <div className={styles.container}>
             <Navbar/>
-
+           
             {loading && <Loader/>}
             {error && <p className={styles.error}>Error: {error}</p>}
             
@@ -137,7 +138,9 @@ function QueryResult() {
             {result && result.status === "complete" &&
             <>
             <h2 className={styles.title}>Your AI Search Visibility Report for {result.site_url}</h2>
+             
             <div className={styles.card}>
+                <ReportFeedback report_id={result.id}/>
                 <div className={styles.tabs}>
                     {tabs.map(tab => (
                         <button
