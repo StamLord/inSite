@@ -1,61 +1,85 @@
+const Tag = {
+    HIGH: "High Impact",
+    MEDIUM: "Medium Impact",
+    EASY: "Easy Win"
+}
+
 export const RECOMMENDATION_RULES = {
     known: {
         false: [{
-            text: "Your brand or site is not recognized by language models. Increase your online presence through consistent naming, backlinks, and high-quality content to improve discoverability.", 
+            tag: Tag.HIGH,
+            title:"Improve brand recognition",
+            content: "Your brand or site is not recognized by language models. Strengthen your online presence through consistent naming, high-quality backlinks, and authoritative content to improve discoverability.",
             score: 20
         }]
     },
     prompt_score: {
         low: [{
-            text: "Improve content targeting by answering common user questions directly, using clear headings, FAQ formats, and semantically rich language.", 
+            tag: Tag.HIGH,
+            title:"Add direct Q&A sections",
+            content: "Target common user questions by creating FAQ pages, clear Q&A sections, and semantically rich headings. Direct answers help LLMs extract and surface your content more effectively.",
             score: 15
         }],
         medium: [{
-            text: "Improve content targeting by answering common user questions directly, using clear headings, FAQ formats, and semantically rich language.", 
+            tag: Tag.HIGH,
+            title:"Expand content with Q&A",
+            content: "Support mid-performing queries by adding Q&A-style content and clear headings. This increases alignment with how users phrase questions.",
             score: 10
         }]
     },
     robots: {
         disallows: [{
-            text: "Update robots.txt to allow indexing by Google, Bing, and LLMs.", 
+            tag: Tag.EASY,
+            title:"Fix robots.txt blocking",
+            content: "Your robots.txt disallows crawling. Search and answer engines cannot access your site until this is corrected.", 
             score: 10
         }]
     },
     meta_robots: {
         noindex: [{
-            text: "Remove the 'noindex' directive in the meta robots tag if you want this page to appear in search engines and LLMs.", 
+            tag: Tag.EASY,
+            title: "Remove noindex directive",
+            content: "The meta robots tag contains 'noindex'. This prevents your page from being indexed by search and answer engines.", 
             score: 10
         }]
     },
     canonical: {
         missing: [{
-            text: "Add a canonical tag to specify the preferred URL.", 
+            tag: Tag.EASY,
+            title:"Add a canonical tag",
+            content: "A canonical tag is missing. Canonicals unify page identity and prevent duplication issues, ensuring answer engines crawl the correct version.", 
             score: 8
         }]
     },
     description: {
         missing: [{
-            text: "Add a meta description to improve search snippets.", 
+            tag: Tag.EASY,
+            title:"Add a meta description",
+            content: "A meta description is missing. Descriptions provide concise page summaries for crawlers and answer engines, increasing the chance of selection in AI answers.", 
             score: 8
         }]
     },
     structured_data: {
         missing: [{
-            text: "Add structured data to help engines underastand your content.", 
+            tag: Tag.HIGH,
+            title:"Add structured data (schema.org)",
+            content: "No structured data detected. Implementing NewsArticle, Organization, and FAQPage schema improves how crawlers and AI engines understand and surface your content.", 
             score: 8 
         }]
     },
     title: {
-        missing: [
-        {
-            text: "Add a <title> tag to your page. This is critical for SEO, click-through rates, and helps LLMs understand what the page is about.",
+        missing: [{
+            tag: Tag.EASY,
+            title:"Add a descriptive <title> tag",
+            content: "No <title> tag detected. The <title> is one of the strongest signals for both search engines and answer engines. Without it, your content is unlikely to appear in AI-powered answers.",
             score: 9,
-        },
-        ],
+        }]
     },
     meta_description: {
         missing: [{
-            text: "Add a meta description for better search snippets.", 
+            tag: Tag.EASY,
+            title: "Add a meta description",
+            content: "No meta description found. Adding one improves how your page is summarized in search and answer engines.", 
             score: 7 
         }]
     },

@@ -68,7 +68,7 @@ function QueryResult() {
 
     useEffect(() => {
         if (result) {
-            setRecommendations(getRecommendations(result, 3));
+            setRecommendations(getRecommendations(result, 5));
         }
     }, [result])
 
@@ -187,11 +187,8 @@ function QueryResult() {
                             <div className={styles.resultItem}>
                                 <h2 className={styles.subTitle}>Suggestions</h2>
                                 {recommendations.map((rec, index) => {
-                                    const tags = ["HIGH IMPACT", "QUICK WIN", "LOW IMPACT"];
-                                    const rand = tags[Math.floor(Math.random() * tags.length)]
                                     return (
-                                        <KeyAction tag={rand} title="Title" description={rec.text}/>
-                                        // <p key={index}>{index + 1}. {rec.text}</p>
+                                        <KeyAction tag={rec.tag} title={rec.title} description={rec.content}/>
                                     );
                                 })}
                             </div>
@@ -378,10 +375,6 @@ function QueryResult() {
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                        <div className={styles.resultItem}>
-                            <h3 className={styles.structureTitle}>Recommendations</h3>
-                            {result.scrape && result.scrape.recommendations}
                         </div>
                     </div>
                 }
