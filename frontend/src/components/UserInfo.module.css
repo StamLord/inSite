@@ -48,7 +48,7 @@
     padding: 0rem 1.3rem;
     border: 0;
     border-radius: 10px;
-    background: var(--color-card);
+    background-color: var(--color-accent);
     color: white;
     font-size: 1rem;
     transition: background-color 0.3s ease;
@@ -60,6 +60,6 @@
 }
 
 .suggestionButton:hover {
-    background-color: var(--color-accent);
+    background: var(--color-card);
     color: white;
 }
