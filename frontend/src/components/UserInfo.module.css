@@ -5,16 +5,18 @@
     background: none;
 }
 
-.loginContainer button {
+.loginContainer button, a {
     padding: 0rem 1rem;
     border: 0;
     border-radius: 10px;
     font-size: 1rem;
     transition: background-color 0.3s ease;
+    align-content: center;
 }
 
-.loginContainer button:hover {
+.loginContainer button:hover, a:hover {
     background-color: var(--color-accent);
+    color: white;
 }
 
 .loginButton {
@@ -24,10 +26,6 @@
 
 .demoButton {
     background-color: white;
-}
-
-.demoButton:hover {
-    color: white;
 }
 
 .welcomeWrapper{
