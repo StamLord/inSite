@@ -10,10 +10,10 @@ const Navbar = () => {
             <Link to="/"><InsiteLogo/></Link>
         </div>
         <div className={styles.nav_center}>
-            <a href="#">Platform</a>
-            <a href="#">Blog</a>
-            <a href="#">Pricing</a>
-            <a href="#">Careers</a>
+            <a className={styles.nav_link} href="#">Platform</a>
+            <a className={styles.nav_link} href="#">Blog</a>
+            <a className={styles.nav_link} href="#">Pricing</a>
+            <a className={styles.nav_link} href="#">Careers</a>
         </div>
         <UserInfo />
     </nav>
