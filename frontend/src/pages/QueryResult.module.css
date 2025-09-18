@@ -137,6 +137,10 @@ h2, .structureTitle {
     position: relative;
 }
 
+.promptItem h4 {
+    width: 85%;
+}
+
 .showAnswer {
     display: inline;
     margin: 0;
