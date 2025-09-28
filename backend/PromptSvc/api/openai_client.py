@@ -127,11 +127,14 @@ def try_parse_json(json_string):
 def get_optimization_score(html: str) -> dict:
     prompt = "Analyze the following HTML content: " + html
 
-    response = client.responses.create(
-        model=CHAT_GPT_MODEL,
-        instructions=SCRAPE_INSTRUCTIONS,
-        input=prompt
-    )
+    try:
+        response = client.responses.create(
+            model=CHAT_GPT_MODEL,
+            instructions=SCRAPE_INSTRUCTIONS,
+            input=prompt
+        )
+    except:
+        return {}
 
     output = response.output_text
     print("Response from ChatGPT: ", output)
@@ -139,6 +142,6 @@ def get_optimization_score(html: str) -> dict:
     parsed, error = try_parse_json(output)
     if error:
         print(error)
-        return []
+        return {}
 
     return parsed

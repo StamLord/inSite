@@ -258,14 +258,24 @@ function QueryResult() {
                     </div>
                 }
 
-                {activeTab === "structure" &&
+                {activeTab === "structure" && !result.scrape && 
+                    <div className={styles.cardContent}>
+                        <div className={styles.resultRow}>
+                            <div className={styles.resultItem}>
+                                <p>An error occurred while scraping the site.</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                {activeTab === "structure" && result.scrape &&
                     <div className={styles.cardContent}>
                         <div className={styles.resultRow}>
                             <div className={styles.resultItem}>
                                 <div className={styles.resultRow}>
                                     <h2 className={styles.subTitle}>Structure Analysis</h2>
                                     <div className={styles.structureScore}>
-                                        <Score score={result.scrape? result.scrape.overall_score : 0}/>
+                                        <Score score={result.scrape.overall_score}/>
                                     </div>
                                 </div>
                                 <div>
