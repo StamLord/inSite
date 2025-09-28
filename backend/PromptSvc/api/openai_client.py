@@ -17,6 +17,15 @@ Respond in JSON with these keys:
 - reasoning: explain why you answered this way
 """
 
+DEFAULT_BRAND_RESULT = {
+    "known": False,
+    "summary": None,
+    "confidence": "low",
+    "reasoning": "This site was not recognized because it does not appear in the model’s training data or is not "
+                 "widely referenced in publicly available sources up to the model’s knowledge cutoff date. "
+                 "Lesser-known, recently created, or niche websites may not be included. "
+}
+
 PROMPT_INSTRUCTIONS = """ 
 Answer only with a JSON array of strings (no explanations, no extra text), for example: 
 
@@ -79,7 +88,10 @@ def get_brand_recognition(url: str) -> dict:
     parsed, error = try_parse_json(output)
     if error:
         print(error)
-        return []
+        return DEFAULT_BRAND_RESULT
+
+    if not parsed["known"]:
+        return DEFAULT_BRAND_RESULT
 
     return parsed
 
