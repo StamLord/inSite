@@ -13,7 +13,7 @@ Do not guess or expand abbreviations. Only respond based on the exact input.
 Respond in JSON with these keys:
 - known: true or false
 - summary: a one-sentence summary of what the site is about, or null if unknown
-- confidence: high, medium, or low
+- confidence: "high", "medium", or "low"
 - reasoning: explain why you answered this way
 """
 
