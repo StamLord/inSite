@@ -27,7 +27,7 @@ const DeepDive = () => {
             </div>
             <div className={styles.actionContainer}>
                 <button className={styles.readButton}>Read More</button>
-                <button className={styles.learnButton} >Learn More</button>
+                <button className={styles.learnButton} >Get Started</button>
             </div>
         </div>
     );

@@ -19,7 +19,7 @@ const Hero = () => {
             <div className={styles.headlineContainer}>
               <h1>AI Talks.</h1>
               <h1>Make Sure It Names Your Brand.</h1>
-              <p className={styles.description}>Track, optimize and dominate your presence across ChatGPT, Gemini, Claude and Preplexity shaping the next era.</p>
+              <p className={styles.description}>Track, optimize and dominate your presence across ChatGPT, Gemini, Claude and Perplexity shaping the next era.</p>
               <div className={styles.customersContainer}>
                 <div>
                   <h2>Our Customers</h2>
