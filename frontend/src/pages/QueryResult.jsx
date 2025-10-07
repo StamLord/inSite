@@ -66,9 +66,20 @@ function QueryResult() {
     }
 
     function getTotalScore() {
-        return Math.round((getPromptsScore() + getConfidenceScore() + getStructureScore()) / 3);
+        const base = 25;
+        const total = Math.round((getPromptsScore() + getConfidenceScore() + getStructureScore()) / 4);
+        return base + total;
     }
 
+    function getTotalScoreMessage() {
+        const score = getTotalScore();
+        if (score <= 50)
+            return "Don’t worry, this isn’t a reflection of your brand’s quality, just how it’s currently represented in AI models."
+        else if (score <= 75)
+            return "You’re on the right track! This score reflects how AI models currently understand your brand — not its real-world strength."
+        else
+            return "Great job! Your brand is already making its mark in AI models!"
+    }
     useEffect(() => {
         if (result) {
             setRecommendations(getRecommendations(result, 5));
@@ -184,11 +195,12 @@ function QueryResult() {
                                     </div>
                                 </div>
                             </div>
-                            <div className={`${styles.resultItem} ${styles.suggestionCard}`}>
+                            <div className={`${styles.resultItem} ${styles.suggestionCard}`} style={{flex: "2"}}>
                                 <h2>Total Score</h2>
                                 <div class={styles.summaryScore}>
                                     <Score score={getTotalScore()}/>
                                 </div>
+                                <span>{getTotalScoreMessage()}</span>
                             </div>
                         </div>
                         <div className={styles.resultRow}>
