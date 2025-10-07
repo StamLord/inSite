@@ -121,7 +121,7 @@ function QueryResult() {
         { id: "summary", label: "Summary"},
         { id: "brand", label: "Brand"},
         { id: "prompts", label: "Prompts"},
-        { id: "structure", label: "Structure"},
+        { id: "structure", label: "AI Readability"},
     ];
 
     const [activeTab, setActiveTab] = useState("summary");
@@ -223,7 +223,7 @@ function QueryResult() {
                                 <h2>Brand Recognition</h2>
                                 <div>
                                     <p>Recognized: {result.known? "✔️" : "❌"}</p>
-                                    <p>Summary: {result.summary}</p>
+                                    <p>Summary: {result.known? result.summary : "N/A"}</p>
                                 </div>
                             </div>
                             <div className={styles.resultCol}>
@@ -299,13 +299,13 @@ function QueryResult() {
                         <div className={styles.resultRow}>
                             <div className={styles.resultItem}>
                                 <div className={styles.resultRow}>
-                                    <h2 className={styles.subTitle}>Structure Analysis</h2>
+                                    <h2 className={styles.subTitle}>AI Readability Analysis</h2>
                                     <div className={styles.structureScore}>
                                         <Score score={result.scrape.overall_score}/>
                                     </div>
                                 </div>
                                 <div>
-                                    <h3 className={styles.structureTitle}>Summary</h3>
+                                    <h3 className={styles.structureTitle}></h3>
                                     {result.scrape.summary}
                                 </div>
                             </div>
