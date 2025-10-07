@@ -10,6 +10,8 @@ import Bar from '../components/Bar';
 import QueryProgress from '../components/QueryProgress';
 import KeyAction from '../components/KeyAction';
 import ReportFeedback from '../components/ReportFeedback';
+import ActionButton from '../components/ActionButton';
+import { useNavigate } from 'react-router-dom';
 
 const API_URL = process.env.REACT_APP_QUERY_SVC_URL;
 
@@ -24,6 +26,7 @@ function QueryResult() {
     const [error, setError] = useState(null);
     const [visibleAnswers, setVisibleAnswers] = useState([]);
     const [recommendations, setRecommendations] = useState([]);
+    const navigate = useNavigate();
 
     let intervalId;
 
@@ -140,6 +143,11 @@ function QueryResult() {
             <h2 className={styles.title}>Your AI Search Visibility Report for {result.site_url}</h2>
              
             <div className={styles.card}>
+                <ActionButton 
+                    text="← Back to Analyze" 
+                    type={0} 
+                    onClick={() => {navigate("/analyze")}}
+                />
                 <ReportFeedback report_id={result.id}/>
                 <div className={styles.tabs}>
                     {tabs.map(tab => (
@@ -224,6 +232,12 @@ function QueryResult() {
                         <div className={styles.resultRow}>
                             <div className={styles.resultItem}>
                                 <h2 className={styles.subTitle}>Popular Prompts</h2>
+                                {!result.prompts && 
+                                    <div>
+                                        <p style={{margin: 0}}>We couldn’t find any popular prompts for this brand yet. Looks like you’re ahead of the curve!</p>
+                                        <p style={{margin: 0}}>Try adding your brand to a few conversations or check back soon once it starts gaining traction.</p>
+                                    </div>
+                                }
                                 {result.prompts && result.prompts.map((prompt, index) => (
                                 <div key={index} className={styles.promptItem}>
                                     <div>
@@ -389,10 +403,16 @@ function QueryResult() {
                     </div>
                 }
 
+                <div style={{display: "flex", justifyContent: "center"}}>
+                    <ActionButton 
+                        text="← Back to Analyze" 
+                        type={0} 
+                        onClick={() => {navigate("/analyze")}}
+                    />
+                </div>
             </div>
             </>
             }
-
             <Footer/>
         </div>
   );
