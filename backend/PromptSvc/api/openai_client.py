@@ -6,7 +6,7 @@ client = OpenAI(
     api_key=os.getenv("OPEN_API_KEY")
 )
 
-CHAT_GPT_MODEL = "gpt-4.1"
+CHAT_GPT_MODEL = "gpt-5"
 BRAND_INSTRUCTIONS = """
 Do you recognize the following brand or website by its **exact name**.
 Do not guess or expand abbreviations. Only respond based on the exact input.
