@@ -392,7 +392,7 @@ function QueryResult() {
                                     <tbody>
                                         {result.technical_scan && Object.entries(result.technical_scan).map(([key, value]) => {
                                             const lower = value.toLowerCase();
-                                            const score = lower === "missing" || lower === "weak"? "bad" : lower === "not enough info"? "mid" : "good";
+                                            const score = lower === "missing" || lower === "weak" || lower.includes("unreachable")? "bad" : lower === "not enough info"? "mid" : "good";
                                             return (
                                                 <tr>
                                                     <td>{key}</td>

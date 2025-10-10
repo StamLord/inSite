@@ -37,6 +37,9 @@ def get_robots_txt(url):
         robots_url = urljoin(url, "/robots.txt")
         response = requests.get(robots_url, timeout=3)
 
+        if response.status_code != 200:
+            return "Not Found / Unreachable"
+
         if "Disallow: /" in response.text:
             return "Disallows crawling"
         else:
