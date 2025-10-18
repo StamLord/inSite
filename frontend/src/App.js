@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from "./pages/Home";
 import QueryResult from "./pages/QueryResult";
 import AnalyzePage from './pages/AnalyzePage';
 import Account from './pages/Account';
+import styles from './styles/variables.css';
 
 function App() {
   return (
