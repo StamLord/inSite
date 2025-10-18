@@ -350,6 +350,14 @@ function QueryResult() {
                         </div>
                         <div className={styles.resultRow}>
                             <div className={styles.resultItem}>
+                                <h2 className={styles.subTitle}>Important</h2>
+                                <p>
+                                    LLMs primarily read RAW HTML. JavaScript-injected tags may not be visible in AI answers or this scan. If something you expected appears as missing, it’s likely not part of the page’s original HTML.
+                                </p>
+                            </div>
+                        </div>
+                        <div className={styles.resultRow}>
+                            <div className={styles.resultItem}>
                                 <h3 className={styles.structureTitle}>Overview</h3>
                                 <table className={`${styles.styledTable} ${styles.fullTable}`}>
                                     <thead>
@@ -382,6 +390,7 @@ function QueryResult() {
                             </div>
                             <div className={styles.resultItem}>
                                 <h3 className={styles.structureTitle}>Technical Scan</h3>
+                                
                                 <table className={`${styles.styledTable} ${styles.fullTable}`}>
                                     <thead>
                                         <tr>
@@ -392,7 +401,7 @@ function QueryResult() {
                                     <tbody>
                                         {result.technical_scan && Object.entries(result.technical_scan).map(([key, value]) => {
                                             const lower = value.toLowerCase();
-                                            const score = lower === "missing" || lower === "weak" || lower.includes("unreachable")? "bad" : lower === "not enough info"? "mid" : "good";
+                                            const score = lower === "missing" || lower === "weak" || lower.includes("unreachable") || lower.includes("disallows")? "bad" : lower === "not enough info"? "mid" : "good";
                                             return (
                                                 <tr>
                                                     <td>{key}</td>
