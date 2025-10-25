@@ -42,14 +42,14 @@ const Hero = () => {
             </div>
           </div>
           <div className={styles.video}>
-            <video 
+            {/* <video 
               autoPlay 
               loop 
               muted
             >
               <source src={heroVideo} type="video/mp4"/>
               Video showcasing a user asking AI for Recommendation.
-            </video>
+            </video> */}
           </div>
         </div>
     </section>
