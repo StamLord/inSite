@@ -149,6 +149,18 @@ function QueryResult() {
             
             {result && result.status === "pending" && <QueryProgress/>}
 
+            {result && result.status === "error" && 
+            <div className={styles.card}>
+                <div className={styles.resultRow}>
+                    <ActionButton 
+                        text="← Back to Analyze" 
+                        type={0} 
+                        onClick={() => {navigate("/analyze")}}
+                    />
+                    <p className={styles.error}>An error was encountered while generating this report. Please try again later.</p>
+                </div>
+            </div>}
+
             {result && result.status === "complete" &&
             <>
             <h2 className={styles.title}>Your AI Search Visibility Report for {result.site_url}</h2>
