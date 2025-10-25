@@ -199,10 +199,12 @@ def downvote(query_id: str, db: Session = Depends(get_db)):
 
 def scrape(url: str):
     url = maximize_url(url)
-    scraped, technical_scan = scrape_site(url)
-    summary = get_optimization_score(scraped)
-
-    return summary, technical_scan
+    try:
+        scraped, technical_scan = scrape_site(url)
+        summary = get_optimization_score(scraped)
+        return summary, technical_scan
+    except Exception as e:
+        return {}, {}
 
 
 @app.post("/register", response_model=UserRegisterResponse)
